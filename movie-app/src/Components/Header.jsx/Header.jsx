@@ -1,7 +1,9 @@
+import './Header.css'
 const Header=()=>{
     return(
-        <div>
-            <h1>Header Component</h1>
+        <div className="header-container">
+            <input className='search-input' type="text" placeholder="Search Movies"/>
+            <button className="search-button"><i className="fa-solid fa-magnifying-glass"></i></button>    
         </div>
     )
 }
