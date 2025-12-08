@@ -1,3 +1,4 @@
+import './Card.css'
 const Card=()=>{
 const tryMovie=[
     {
@@ -20,7 +21,14 @@ const tryMovie=[
     return(
         <div className="card">
             {tryMovie.map((movie)=>(
-                <div>{movie.release_date}<img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} /></div>
+                <div>
+                  <div><img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} /></div>
+                  <div className='movie-info'>
+                  <div className='movie-title'>{movie.title}</div>
+                  <div className="vote-average"> <i className="fa-brands fa-imdb"></i> {movie.vote_average}</div>
+                  <div className="overview">{movie.overview}</div>
+                  </div>
+                </div>
             ))}
         </div>
     )

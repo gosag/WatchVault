@@ -1,0 +1,11 @@
+
+.bigger-container{
+     background: linear-gradient(
+    135deg,
+    #fff5f7,
+    #fbe7ee,
+    #fde2e4
+  );
+     min-height:100vh;
+  }
+

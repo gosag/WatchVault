@@ -20,10 +20,10 @@ function App() {
     return ()=>{console.log("cleanup")};  
   },[])
   return (
-    <>
+    <div className='bigger-container'>
       <Header/>
       <Card movies={movies}/>
-    </>
+    </div>
   )
 }
 
