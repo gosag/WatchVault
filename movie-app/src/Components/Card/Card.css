@@ -35,5 +35,11 @@
     font-size:1.1rem;
     font-weight:600;
     margin:10px 0 5px 0;
+    margin-bottom:0px;
+
     
+}
+.star-image{
+    height:20px;
+    margin-top:4px;
 }
