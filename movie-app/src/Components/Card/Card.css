@@ -36,20 +36,31 @@
     display:block;
     margin-top:15px;
 }
+.card .main{
+    position:relative;
+    
+}
+.card .blur{
+  position:absolute;
+  filter:blur(20px);
+  height: 60px;
+  top:85%;
+  width:110%;
+  left:-5%;
+}
 
 .movie-info{
     display:flex;
     flex-direction:column;
     align-items:center;
+   z-index: 1;
 }
 .movie-title{
-
     font-size:1.1rem;
     font-weight:600;
     margin:10px 0 5px 0;
     margin-bottom:0px;
-
-    
+    color:rgb(226, 226, 234);
 }
 .star-image{
     height:20px;
@@ -58,7 +69,7 @@
 .full-details{
     margin-top:8px;
     padding:0.4em 0.8em;
-    background-color: rgb(50, 78, 205);
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
     color:white;
     border:none;
     border-radius: 10px;

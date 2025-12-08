@@ -11,7 +11,7 @@ const tryMovie=[
       original_title: "Man",
       overview: "Maggie and her sister form an unusual bond during an encounter with a young man.",
       popularity: 3.0962,
-      poster_path: "/duvsME7fNGutR2SPm1lZqXls9zY.jpg",
+      poster_path: "/fOfFksPHhWiRKOoYEIQFhT4RJ2d.jpg",
       release_date: "2008-01-22",
       title: "Man",
       video: false,
@@ -71,9 +71,9 @@ if (tryMovie.length > 0) {
             {tryMovie.map((movie)=>(
                 <div className='inner-cart-container'>
                   <div className='image-wrap'>
-                    <img className='movie-poster' src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+                    <img className='movie-poster blur' src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+                    <img className='movie-poster main' src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
                   </div>
-                    
                   <div className='movie-info'>
                   <div className='movie-title'><p>{movie.title}</p>
                       </div>
