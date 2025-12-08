@@ -69,12 +69,18 @@ if (tryMovie.length > 0) {
     return(
         <div className="card">
             {tryMovie.map((movie)=>(
-                <div>
-                  <div><img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} /></div>
-                  <div className='movie-info'>
-                  <div className='movie-title'>{movie.title}</div>
-                  <div className="vote-average"> <img className='star-image' src={`../../../ratings/${ratingValue}`}/></div>
+                <div className='inner-cart-container'>
+                  <div className='image-wrap'>
+                    <img className='movie-poster' src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
                   </div>
+                    
+                  <div className='movie-info'>
+                  <div className='movie-title'><p>{movie.title}</p>
+                      </div>
+                  <div className="vote-average"> <img className='star-image' src={`../../../ratings/${ratingValue}`}/></div>
+                  
+                  </div>
+                  <button className="full-details">Details</button>
                 </div>
             ))}
         </div>
