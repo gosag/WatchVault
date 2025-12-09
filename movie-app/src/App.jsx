@@ -5,7 +5,10 @@ import Header from './Components/Header.jsx/Header.jsx'
 function App() {
   const [movies,setMovies]=useState([])
   const [showMovies,setShowMovies]=useState(false)
-  const [watchList,setWatchList]=useState([])
+  const [watchList, setWatchList] = useState(() => {
+  const saved = localStorage.getItem("watchList");
+  return saved ? JSON.parse(saved) : []
+});
   useEffect(()=>{
     const fetchMovies = async()=>{
       try{
@@ -24,6 +27,9 @@ function App() {
     fetchMovies();
     return ()=>{console.log("cleanup")};  
   },[])
+  useEffect(() => {
+  localStorage.setItem("watchList", JSON.stringify(watchList));
+}, [watchList]);
   return (
     <div className='bigger-container'>
       <Header watchList={watchList}/>

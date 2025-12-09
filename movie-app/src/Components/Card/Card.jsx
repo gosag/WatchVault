@@ -65,8 +65,6 @@ useEffect(()=>{
   const [tempWatch,setTempwatch]=useState(null);
 const matchFound=watchList.find((item)=>item.id===tryMovie.id)
 function AddToWatchList(){
-    console.log('added to watch list',tryMovie.id);
-    
     setTempwatch(tryMovie);
     setIsFavourite(preS=>!preS)
 }
@@ -89,6 +87,12 @@ function removeFromWatchList(){
         setIsFavourite(preS=>!preS)
     }
 }
+const aMatchFound=watchList.some((item)=>item.id===tryMovie.id)
+useEffect(()=>{
+ if(aMatchFound){
+    setIsFavourite(true)
+ }
+},[watchList])
 const [isFavorite,setIsFavourite]=useState(false);
     return(
         <div className="card">
