@@ -82,6 +82,13 @@ useEffect(()=>{
     }
     return ()=>{console.log("cleanup")};
 },[tempWatch])
+function removeFromWatchList(){
+    if(watchList.length>0 && matchFound){
+        const filterdMovies=watchList.filter((movie)=>(movie.id!==tryMovie.id))
+        setWatchList(filterdMovies)
+        setIsFavourite(preS=>!preS)
+    }
+}
 const [isFavorite,setIsFavourite]=useState(false);
     return(
         <div className="card">
@@ -100,7 +107,7 @@ const [isFavorite,setIsFavourite]=useState(false);
                   
                   </div>
                   <button className="full-details">Details</button>
-                  <div className={`fav-container ${isFavorite?"is-favourite":''}`} onClick={AddToWatchList} >
+                  <div className={`fav-container ${isFavorite?"is-favourite":''}`} onClick={!isFavorite?AddToWatchList:removeFromWatchList} >
                      <i className="fa-solid fa-heart"></i>
                   </div>
                 </div>
