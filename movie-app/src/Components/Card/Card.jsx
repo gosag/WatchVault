@@ -1,6 +1,6 @@
 import './Card.css'
 import {useState,useEffect} from 'react'
-const Card=({tryMovie})=>{
+const Card=({tryMovie,watchList,setWatchList})=>{
 const Movie=
     {
       adult: false,
@@ -61,8 +61,23 @@ function ChangeVoteAverage() {
 
 useEffect(()=>{
     ChangeVoteAverage();
-},[])
-
+},[tryMovie])
+  const [tempWatch,setTempwatch]=useState(null);
+function AddToWatchList(){
+    console.log('added to watch list',tryMovie.id);
+    setTempwatch(tryMovie);
+    setIsFavourite(preS=>!preS)
+}
+useEffect(()=>{
+    if (!tempWatch) return;
+    try{
+     setWatchList((prevState)=>[...prevState,tempWatch]);
+    }catch(error){
+        console.log('caught error:',error);
+    }
+    return ()=>{console.log("cleanup")};
+},[tempWatch])
+const [isFavorite,setIsFavourite]=useState(false);
     return(
         <div className="card">
                 <div className='inner-card-container'>
@@ -80,10 +95,11 @@ useEffect(()=>{
                   
                   </div>
                   <button className="full-details">Details</button>
-                  <div className='fav-container'>
+                  <div className={`fav-container ${isFavorite?"is-favourite":''}`} onClick={AddToWatchList} >
                      <i className="fa-solid fa-heart"></i>
                   </div>
                 </div>
+                
         </div>
     )
 }

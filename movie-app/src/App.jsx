@@ -3,10 +3,9 @@ import './App.css'
 import Card from './Components/Card/Card.jsx'
 import Header from './Components/Header.jsx/Header.jsx'
 function App() {
-  const [count, setCount] = useState(0)
   const [movies,setMovies]=useState([])
   const [showMovies,setShowMovies]=useState(false)
-  const [forCartComponent,setForCartComponent]=useState([])
+  const [watchList,setWatchList]=useState([])
   useEffect(()=>{
     const fetchMovies = async()=>{
       try{
@@ -25,15 +24,17 @@ function App() {
     fetchMovies();
     return ()=>{console.log("cleanup")};  
   },[])
-
   return (
     <div className='bigger-container'>
-      <Header/>
+      <Header watchList={watchList}/>
     <div className='box-wrapper'>
      { showMovies &&
        movies.map((movie)=>(
           <div key={movie.id}> 
-             <Card tryMovie={movie}/>
+             <Card tryMovie={movie} 
+              watchList={watchList}
+              setWatchList={setWatchList}
+             />
           </div>
         ))
       }

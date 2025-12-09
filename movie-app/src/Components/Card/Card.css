@@ -112,3 +112,7 @@
 .fav-container:hover {
     background: rgba(255, 182, 193, 0.9);
 }
+.is-favourite{
+    color:red;
+    background-color: #fde6ee;
+}
