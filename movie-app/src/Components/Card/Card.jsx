@@ -63,15 +63,20 @@ useEffect(()=>{
     ChangeVoteAverage();
 },[tryMovie])
   const [tempWatch,setTempwatch]=useState(null);
+const matchFound=watchList.find((item)=>item.id===tryMovie.id)
 function AddToWatchList(){
     console.log('added to watch list',tryMovie.id);
+    
     setTempwatch(tryMovie);
     setIsFavourite(preS=>!preS)
 }
 useEffect(()=>{
     if (!tempWatch) return;
     try{
-     setWatchList((prevState)=>[...prevState,tempWatch]);
+    if(!matchFound){
+        setWatchList((prevState)=>[...prevState,tempWatch]);
+    }
+     
     }catch(error){
         console.log('caught error:',error);
     }
