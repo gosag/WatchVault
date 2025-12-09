@@ -1,7 +1,7 @@
 import './Card.css'
 import {useState,useEffect} from 'react'
-const Card=()=>{
-const tryMovie=[
+const Card=({tryMovie})=>{
+const Movie=
     {
       adult: false,
       backdrop_path: "/sT1WD9FLDhox4jzANtaL3svMNXF.jpg",
@@ -18,11 +18,10 @@ const tryMovie=[
       vote_average: 7.1,
       vote_count: 23
     }
-]
 const [ratingValue,setRatingValue]=useState('rating-0.png')
 
 function ChangeVoteAverage() {
-    const Vote = tryMovie[0].vote_average;
+    const Vote = tryMovie.vote_average;
 
     if (Vote < 1) {
         setRatingValue('rating-0.png');
@@ -68,21 +67,23 @@ if (tryMovie.length > 0) {
 
     return(
         <div className="card">
-            {tryMovie.map((movie)=>(
                 <div className='inner-cart-container'>
                   <div className='image-wrap'>
-                    <img className='movie-poster blur' src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-                    <img className='movie-poster main' src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+                    <img className='movie-poster blur' src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`} alt={tryMovie.title} />
+                    <img className='movie-poster main' src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`} alt={tryMovie.title} />
                   </div>
                   <div className='movie-info'>
-                  <div className='movie-title'><p>{movie.title}</p>
-                      </div>
+                        <div className='movie-title'>
+                             <p>{tryMovie.title}</p>
+                        </div>
+                        <div className='fav-container'>
+                            <i className="fa-solid fa-heart"></i>
+                        </div>
                   <div className="vote-average"> <img className='star-image' src={`../../../ratings/${ratingValue}`}/></div>
                   
                   </div>
                   <button className="full-details">Details</button>
                 </div>
-            ))}
         </div>
     )
 }

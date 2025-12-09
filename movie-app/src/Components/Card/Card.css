@@ -54,6 +54,7 @@
     flex-direction:column;
     align-items:center;
    z-index: 1;
+   position:relative;
 }
 .movie-title{
     font-size:1.1rem;
@@ -61,6 +62,8 @@
     margin:10px 0 5px 0;
     margin-bottom:0px;
     color:rgb(226, 226, 234);
+    text-align:left;
+    width:120%;
 }
 .star-image{
     height:20px;
@@ -78,4 +81,24 @@
     transition: all 0.3s ease-in;
     box-shadow: 2px 2px 5px rgb(68, 91, 190);
     margin-bottom: 10px;
+}
+.fav-container{
+    position:absolute;
+    top:6px;
+    right:-20px;
+    box-shadow: 1px 1px 3px rgb(255, 182, 193);
+    background: transparent;
+    border-radius:50%;
+    width:30px;
+    height:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition: all 0.3s ease-in-out;
+    color:white;
+    background-color: #4f46e5;
+}
+.fav-container:hover {
+    background: rgba(255, 182, 193, 0.9);
 }
