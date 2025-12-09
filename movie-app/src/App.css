@@ -10,4 +10,9 @@
      margin-top:0px;
   }
 
-
+.box-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}

@@ -16,14 +16,16 @@
     transition: transform 0.3s ease-in-out;
     display:flex;
     flex-direction: column;
+    position:relative;
 }
 .card:hover{
     transform: scale(1.02);
 }
-.inner-cart-container{
+.inner-card-container{
     display:flex;
     flex-direction: column;
     align-items: center;
+
 }
 .image-wrap{
     position: relative;
@@ -53,17 +55,22 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-   z-index: 1;
-   position:relative;
+    z-index: 1;
 }
 .movie-title{
     font-size:1.1rem;
     font-weight:600;
-    margin:10px 0 5px 0;
+    max-width: 175px;
+    margin-left:12px;
     margin-bottom:0px;
-    color:rgb(226, 226, 234);
+    color:rgb(0, 0, 0);
     text-align:left;
     width:120%;
+    z-index: 1;
+      background: linear-gradient(90deg, #ff0000, #ff9900, #ffff00);
+  -webkit-background-clip: text;   /* for Chrome/Safari */
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .star-image{
     height:20px;
@@ -84,8 +91,8 @@
 }
 .fav-container{
     position:absolute;
-    top:6px;
-    right:-20px;
+    top:74%;
+    right:2px;
     box-shadow: 1px 1px 3px rgb(255, 182, 193);
     background: transparent;
     border-radius:50%;
@@ -98,6 +105,7 @@
     transition: all 0.3s ease-in-out;
     color:white;
     background-color: #4f46e5;
+    z-index: 2;
 }
 .fav-container:hover {
     background: rgba(255, 182, 193, 0.9);

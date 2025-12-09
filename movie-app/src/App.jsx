@@ -29,17 +29,15 @@ function App() {
   return (
     <div className='bigger-container'>
       <Header/>
-      {showMovies &&
+    <div className='box-wrapper'>
+     { showMovies &&
        movies.map((movie)=>(
-          <div>
-            {movie.poster_path && 
-             /* movie.title.length<12
-            &&  */
-             <Card tryMovie={movie}/>}
+          <div key={movie.id}> 
+             <Card tryMovie={movie}/>
           </div>
         ))
       }
-      
+    </div>
     </div>
   )
 }
