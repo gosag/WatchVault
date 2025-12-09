@@ -58,7 +58,7 @@
     z-index: 1;
 }
 .movie-title{
-    font-size:1.1rem;
+    font-size:1.2rem;
     font-weight:600;
     max-width: 175px;
     margin-left:12px;
@@ -71,6 +71,8 @@
   -webkit-background-clip: text;   /* for Chrome/Safari */
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-family: 'Bebas Neue', sans-serif;
+
 }
 .star-image{
     height:20px;
