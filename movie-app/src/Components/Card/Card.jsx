@@ -98,7 +98,7 @@ const [isFavorite,setIsFavourite]=useState(false);
         <div className="card">
                 <div className='inner-card-container'>
                   <div className='image-wrap'>
-                    <img className='movie-poster blur' src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`} alt={tryMovie.title} />
+                    {<img className='movie-poster blur' src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`} alt={tryMovie.title} />}
                     <img className='movie-poster main' src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`} alt={tryMovie.title} />
                   </div>
                   <div className='movie-title'>
@@ -107,7 +107,7 @@ const [isFavorite,setIsFavourite]=useState(false);
                   <div className='movie-info'>
                         
                         
-                  <div className="vote-average"> <img className='star-image' src={`../../../ratings/${ratingValue}`}/></div>
+                     <div className="vote-average"> <img className='star-image' src={`../../../ratings/${ratingValue}`}/></div>
                   
                   </div>
                   <button className="full-details">Details</button>
