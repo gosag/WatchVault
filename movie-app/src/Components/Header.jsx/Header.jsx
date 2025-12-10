@@ -11,7 +11,7 @@ const [isToggled,setIsToggled]=useState(false)
             <button className="search-button"><i className="fa-solid fa-magnifying-glass"></i></button>
             <button className="search-button" onClick={AddedTowatch}>watch list</button>
             <div className={`toggle-theme ${!isToggled?"not-toggled":"toggled"}`} onClick={()=>{setIsToggled(prevS=>!prevS)}}>
-               <div className={`toggle-circle`}></div> 
+               <div className={`toggle-circle ${isToggled?"on-state":"off-state"}`}></div> 
             </div> 
         </div>
     )

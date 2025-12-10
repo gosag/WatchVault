@@ -12,6 +12,7 @@ body {
     margin-top:0;
     padding-top: 10px;
     position:relative;
+    margin-left: 1em;
 }
 .search-input{
     width:300px;
@@ -34,25 +35,22 @@ body {
 .search-button{
     padding:0.5em 1em;
     margin-left:0.5em;
-    background-color: rgb(75, 179, 132);
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     color:white;
     border:none;
     border-radius: 10px;
     font-size: 1rem;
     cursor:pointer;
     transition: all 0.3s ease-in;
-    box-shadow: 2px 2px 5px yellowgreen;
     
 }
 .toggle-theme{
     width:55px;
     height:25px;
-   
-
     position:absolute;
     right:20px;
     border-radius: 13px;
-    top:13px;
+    top:15px;
     display:flex;
     align-items: center;
 }
@@ -63,10 +61,40 @@ body {
     position:relative;
     border-radius:50%;
     margin-left:3px;
+
 }
 .not-toggled{
     background: linear-gradient(135deg, #2c2c2c, #1b1b1b);
 }
 .toggled{
      background: linear-gradient(135deg, #00c6ff, #0072ff);
+     
+}
+
+.on-state{
+    animation: onState 0.5s ease forwards;
+}
+@keyframes onState{
+    from{
+        transform:translateX(0);
+        opacity:0;
+    }
+    to{
+        transform: translateX(30px);
+        opacity:1
+    }
+}
+
+.off-state{
+    animation: offState 0.5s ease forwards;
+}
+@keyframes offState {
+  from {
+    transform: translateX(30px); 
+    opacity:0 
+  }
+  to {
+    transform: translateX(0);
+    opacity:1;
+  }
 }
