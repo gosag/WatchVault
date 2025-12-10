@@ -8,9 +8,10 @@ body {
 }
 .header-container{
     display:flex;
-    justify-content:center;
+    width:100%;
     margin-top:0;
     padding-top: 10px;
+    position:relative;
 }
 .search-input{
     width:300px;
@@ -42,4 +43,30 @@ body {
     transition: all 0.3s ease-in;
     box-shadow: 2px 2px 5px yellowgreen;
     
+}
+.toggle-theme{
+    width:55px;
+    height:25px;
+   
+
+    position:absolute;
+    right:20px;
+    border-radius: 13px;
+    top:13px;
+    display:flex;
+    align-items: center;
+}
+.toggle-circle{
+    width:20px;
+    height:20px;
+    background-color: white;
+    position:relative;
+    border-radius:50%;
+    margin-left:3px;
+}
+.not-toggled{
+    background: linear-gradient(135deg, #2c2c2c, #1b1b1b);
+}
+.toggled{
+     background: linear-gradient(135deg, #00c6ff, #0072ff);
 }
