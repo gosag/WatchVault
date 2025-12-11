@@ -1,6 +1,6 @@
 import './Card.css'
 import {useState,useEffect} from 'react'
-const Card=({tryMovie,watchList,setWatchList})=>{
+const Card=({tryMovie,watchList,setWatchList,isToggled})=>{
 const Movie=
     {
       adult: false,
@@ -57,8 +57,6 @@ function ChangeVoteAverage() {
         setRatingValue('rating-50.png');
     }
 }
-
-
 useEffect(()=>{
     ChangeVoteAverage();
 },[tryMovie])
@@ -95,7 +93,7 @@ useEffect(()=>{
 },[watchList])
 const [isFavorite,setIsFavourite]=useState(false);
     return(
-        <div className="card">
+        <div className={`card ${!isToggled?"bright-light-card":"dim-light-card"}`}>
                 <div className='inner-card-container'>
                   <div className='image-wrap'>
                     {<img className='movie-poster blur' src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`} alt={tryMovie.title} />}
@@ -114,6 +112,7 @@ const [isFavorite,setIsFavourite]=useState(false);
                   <div className={`fav-container ${isFavorite?"is-favourite":''}`} onClick={!isFavorite?AddToWatchList:removeFromWatchList} >
                      <i className="fa-solid fa-heart"></i>
                   </div>
+                  
                 </div>
                 
         </div>

@@ -1,11 +1,6 @@
 
 .bigger-container{
-     background: linear-gradient(
-    135deg,
-    #fff5f7,
-    #fbe7ee,
-    #fde2e4
-  );
+    
      min-height:100vh;
      margin-top:0px;
   }
@@ -16,3 +11,11 @@
   gap: 20px;
   justify-content: center;
 }
+.bright-light{
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+.dim-light{
+  background: linear-gradient(135deg, #1b0f11, #2a181b);
+
+}  
+

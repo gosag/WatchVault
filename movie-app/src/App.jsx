@@ -32,7 +32,7 @@ function App() {
   localStorage.setItem("watchList", JSON.stringify(watchList));
 }, [watchList]);
   return (
-    <div className='bigger-container'>
+    <div className={`bigger-container ${!isToggled?"bright-light":"dim-light"}`}>
       <Header watchList={watchList}
       isToggled={isToggled}
       setIsToggled={setIsToggled}/>
@@ -43,6 +43,7 @@ function App() {
              <Card tryMovie={movie} 
               watchList={watchList}
               setWatchList={setWatchList}
+              isToggled={isToggled}
              />
           </div>
         ))
