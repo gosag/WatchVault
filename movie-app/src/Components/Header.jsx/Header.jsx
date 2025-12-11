@@ -1,10 +1,10 @@
 import './Header.css'
 import {useState} from 'react'
-const Header=({watchList})=>{
+const Header=({watchList,isToggled,setIsToggled})=>{
     function AddedTowatch(){
         console.log(watchList)
     }
-const [isToggled,setIsToggled]=useState(false)
+
     return(
         <div className="header-container">
             <input className='search-input' type="text" placeholder="Search Movies"/>

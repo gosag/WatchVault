@@ -5,6 +5,7 @@ import Header from './Components/Header.jsx/Header.jsx'
 function App() {
   const [movies,setMovies]=useState([])
   const [showMovies,setShowMovies]=useState(false)
+  const [isToggled,setIsToggled]=useState(false)
   const [watchList, setWatchList] = useState(() => {
   const saved = localStorage.getItem("watchList");
   return saved ? JSON.parse(saved) : []
@@ -32,7 +33,9 @@ function App() {
 }, [watchList]);
   return (
     <div className='bigger-container'>
-      <Header watchList={watchList}/>
+      <Header watchList={watchList}
+      isToggled={isToggled}
+      setIsToggled={setIsToggled}/>
     <div className='box-wrapper'>
      { showMovies &&
        movies.map((movie)=>(
