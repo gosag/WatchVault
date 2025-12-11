@@ -99,7 +99,12 @@ body {
   }
 }
 .inner-header-container{
-    width:87%;
+    width:80%;
     display:flex;
-    justify-content: space-between
+    justify-content: center;
+}
+.watchlist{
+    position:absolute;
+    right:5em;
+    top:10px;
 }
