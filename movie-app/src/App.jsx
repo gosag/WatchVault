@@ -5,7 +5,8 @@ import Header from './Components/Header.jsx/Header.jsx'
 function App() {
   const [movies,setMovies]=useState([])
   const [showMovies,setShowMovies]=useState(false)
-  const [isToggled,setIsToggled]=useState(false)
+  const [isToggled,setIsToggled]=useState(
+  localStorage.getItem('isToggled') === 'true'||false)
   const [watchList, setWatchList] = useState(() => {
   const saved = localStorage.getItem("watchList");
   return saved ? JSON.parse(saved) : []
@@ -31,6 +32,9 @@ function App() {
   useEffect(() => {
   localStorage.setItem("watchList", JSON.stringify(watchList));
 }, [watchList]);
+useEffect(()=>{
+  localStorage.setItem('isToggled',isToggled)
+},[isToggled])
   return (
     <div className={`bigger-container ${isToggled?"dim-light":''}`}>
       <Header watchList={watchList}
