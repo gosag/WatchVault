@@ -98,3 +98,8 @@ body {
     opacity:1;
   }
 }
+.inner-header-container{
+    width:87%;
+    display:flex;
+    justify-content: space-between
+}
