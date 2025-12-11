@@ -3,13 +3,7 @@
     max-width:200px;
     margin:10px;
     padding-top: 7px;
-    background: linear-gradient(
-    145deg,
-    #ffffff,
-    #fff5f8,
-    #fde6ee
-  );
-
+    background: linear-gradient(135deg, #1d2430, #2c3a55);
     box-shadow: 
     0 20px 40px rgba(255, 182, 193, 0.25),
     0 10px 20px rgba(255, 182, 193, 0.15);
@@ -115,4 +109,7 @@
 .is-favourite{
     color:red;
     background-color: #fde6ee;
+}
+.dim-light-card{
+ background: linear-gradient(135deg, #1a1415, #24191b);
 }

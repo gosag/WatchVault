@@ -32,7 +32,7 @@ function App() {
   localStorage.setItem("watchList", JSON.stringify(watchList));
 }, [watchList]);
   return (
-    <div className={`bigger-container ${!isToggled?"bright-light":"dim-light"}`}>
+    <div className={`bigger-container ${isToggled?"dim-light":''}`}>
       <Header watchList={watchList}
       isToggled={isToggled}
       setIsToggled={setIsToggled}/>

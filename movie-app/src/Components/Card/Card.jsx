@@ -93,7 +93,7 @@ useEffect(()=>{
 },[watchList])
 const [isFavorite,setIsFavourite]=useState(false);
     return(
-        <div className={`card ${!isToggled?"bright-light-card":"dim-light-card"}`}>
+        <div className={`card ${isToggled?"dim-light-card":""}`}>
                 <div className='inner-card-container'>
                   <div className='image-wrap'>
                     {<img className='movie-poster blur' src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`} alt={tryMovie.title} />}
