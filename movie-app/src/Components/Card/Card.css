@@ -3,7 +3,7 @@
     max-width:200px;
     margin:10px;
     padding-top: 7px;
-    background: linear-gradient(135deg, #1d2430, #2c3a55);
+    background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(232,220,255,0.75) 100%);
     box-shadow: 
     0 20px 40px rgba(255, 182, 193, 0.25),
     0 10px 20px rgba(255, 182, 193, 0.15);
