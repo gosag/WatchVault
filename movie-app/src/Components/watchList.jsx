@@ -1,7 +1,7 @@
 function WatchList(){
     return(
         <div>
-
+          watch list 
         </div>
     )
 }

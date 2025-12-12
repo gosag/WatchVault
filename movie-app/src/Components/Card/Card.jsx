@@ -1,5 +1,6 @@
 import './Card.css'
 import {useState,useEffect} from 'react'
+import { Link } from 'react-router-dom'
 const Card=({tryMovie,watchList,setWatchList,isToggled})=>{
 const Movie=
     {
@@ -108,7 +109,9 @@ const [isFavorite,setIsFavourite]=useState(false);
                      <div className="vote-average"> <img className='star-image' src={`../../../ratings/${ratingValue}`}/></div>
                   
                   </div>
-                  <button className="full-details">Details</button>
+                  <Link to={"/Details"}>
+                         <button className="full-details">Details</button>
+                  </Link>
                   <div className={`fav-container ${isFavorite?"is-favourite":''}`} onClick={!isFavorite?AddToWatchList:removeFromWatchList} >
                      <i className="fa-solid fa-heart"></i>
                   </div>
