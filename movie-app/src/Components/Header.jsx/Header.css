@@ -35,7 +35,8 @@ body {
 .search-button{
     padding:0.5em 1em;
     margin-left:0.5em;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 100%);
+    color: white;
     color:white;
     border:none;
     border-radius: 10px;
@@ -107,4 +108,12 @@ body {
     position:absolute;
     right:5em;
     top:10px;
+    background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 100%);
+color: white;
+
+}
+@media (max-width:715px){
+    .inner-header-container{
+        width:70%;
+    }
 }
