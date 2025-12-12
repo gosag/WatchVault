@@ -75,15 +75,16 @@
 .full-details{
     margin-top:8px;
     padding:0.4em 0.8em;
-    background: linear-gradient(135deg, #4f46e5, #9333ea);
-    color:white;
     border:none;
-    border-radius: 10px;
     font-size: 0.9rem;
     cursor:pointer;
     transition: all 0.3s ease-in;
-    box-shadow: 2px 2px 5px rgb(68, 91, 190);
     margin-bottom: 10px;
+    background: linear-gradient(135deg, #7c4dff, #8f6dff);
+    color: #fff;
+    border-radius: 25px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 12px rgba(124, 77, 255, 0.25);
 }
 .fav-container{
     position:absolute;

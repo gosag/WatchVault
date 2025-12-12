@@ -20,8 +20,11 @@ body {
     border:1px solid rgb(75, 179, 132);
     border-radius: 10px;
     font-size: 1rem;
-    box-shadow: 2px 2px 5px yellowgreen;
-
+    background: #ffffff;
+    border: 2px solid #d4caff;
+    border-radius: 30px;
+    padding: 12px 20px;
+    box-shadow: 0 0 10px rgba(120, 90, 255, 0.15);
 }
 
 .search-input:focus{
