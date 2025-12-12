@@ -114,3 +114,9 @@
 .dim-light-card{
  background: linear-gradient(135deg, #1a1415, #24191b);
 }
+.black-title{
+  background: linear-gradient(90deg, #000000, #2a2a2a, #000000);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}

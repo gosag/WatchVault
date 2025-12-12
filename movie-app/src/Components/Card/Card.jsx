@@ -99,7 +99,7 @@ const [isFavorite,setIsFavourite]=useState(false);
                     {<img className='movie-poster blur' src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`} alt={tryMovie.title} />}
                     <img className='movie-poster main' src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`} alt={tryMovie.title} />
                   </div>
-                  <div className='movie-title'>
+                  <div className={`movie-title ${!isToggled?"black-title":""}`}>
                              {tryMovie.title}
                   </div>
                   <div className='movie-info'>
