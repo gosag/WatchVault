@@ -39,7 +39,9 @@ useEffect(()=>{
     <div className={`bigger-container ${isToggled?"dim-light":''}`}>
       <Header watchList={watchList}
       isToggled={isToggled}
-      setIsToggled={setIsToggled}/>
+      setIsToggled={setIsToggled}
+      movies={movies}
+      />
     <div className='box-wrapper'>
      { showMovies &&
        movies.map((movie)=>(
@@ -48,6 +50,7 @@ useEffect(()=>{
               watchList={watchList}
               setWatchList={setWatchList}
               isToggled={isToggled}
+
              />
           </div>
         ))
