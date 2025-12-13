@@ -109,7 +109,7 @@ const [isFavorite,setIsFavourite]=useState(false);
                      <div className="vote-average"> <img className='star-image' src={`../../../ratings/${ratingValue}`}/></div>
                   
                   </div>
-                  <Link to={"/Details"}>
+                  <Link to="/Details" state={{tryMovie:tryMovie,isToggled:isToggled}}>
                          <button className="full-details">Details</button>
                   </Link>
                   <div className={`fav-container ${isFavorite?"is-favourite":''}`} onClick={!isFavorite?AddToWatchList:removeFromWatchList} >
