@@ -10,6 +10,11 @@ function WatchList() {
     function RemoveHandler(id){
         const filteredMovies=watchList.filter((movie)=>movie.id!==id)
         setWatchList(filteredMovies)
+        localStorage.setItem(
+        "watchList",
+        JSON.stringify(filteredMovies)
+    );
+        
     }
  if(watchList.length===0){
     return(
@@ -19,21 +24,23 @@ function WatchList() {
         </div>
     )
  }
+ 
+
   return(
     <div className="page-container">
-        <h2 className="watchlist-header">My watchlist</h2>\
+        <h2 className="watchlist-header">My watchlist</h2>
         <div className="movies-container">
         {watchList.map((movie)=>(
             <div className="card-container" key={movie.id}>
-                <div className="image-container">
+                <div className="image-contain">
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                          alt={movie.title}/>
                 </div>
-                <div className="info">
-                    <div>{movie.title}</div>
-                    <div>⭐ {movie.vote_average}</div>
+                <div className="watchList-info">
+                    <div className="watchlist-title">{movie.title}</div>
+                    <div className="movie-rating">⭐ {movie.vote_average}</div>
                 </div>
-                <button className="romove-button" onClick={()=>{
+                <button className="remove-btn" onClick={()=>{
                     RemoveHandler(movie.id)
                 }}>Remove</button>
 
