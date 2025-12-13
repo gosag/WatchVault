@@ -1,112 +1,154 @@
-/* Page background */
+/* ====== PAGE ====== */
 .details-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a, #020617);
+  background:
+    radial-gradient(circle at top, #0f172a 0%, #020617 40%),
+    linear-gradient(135deg, #020617, #000);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 2rem;
   color: #e5e7eb;
 }
 
-/* Main container */
+/* ====== CONTAINER ====== */
 .details-container {
   max-width: 1100px;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 2rem;
-  background: rgba(15, 23, 42, 0.85);
-  border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  border-radius: 22px;
+
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 0 40px rgba(56, 189, 248, 0.15),
+    inset 0 0 30px rgba(56, 189, 248, 0.05);
+
+  border: 1px solid rgba(56, 189, 248, 0.25);
 }
 
-/* Poster */
+/* ====== POSTER ====== */
 .poster img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 18px;
+  box-shadow:
+    0 0 25px rgba(56, 189, 248, 0.45),
+    0 0 60px rgba(37, 99, 235, 0.35);
 }
 
-/* Info section */
+/* ====== INFO ====== */
 .info {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
 
-/* Title */
+/* ====== TITLE (NEON TEXT) ====== */
 .title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 2.7rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+
+  background: linear-gradient(90deg, #38bdf8, #6366f1, #38bdf8);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 12px rgba(56, 189, 248, 0.8),
+    0 0 30px rgba(99, 102, 241, 0.6);
+
+  animation: neonFlow 4s linear infinite;
 }
 
-/* Meta info */
+@keyframes neonFlow {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* ====== META ====== */
 .meta {
   display: flex;
   flex-wrap: wrap;
   gap: 1.2rem;
   font-size: 0.95rem;
-  color: #cbd5f5;
+  color: #c7d2fe;
+  text-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
 }
 
-/* Overview text */
+/* ====== OVERVIEW ====== */
 .overview {
   font-size: 1rem;
-  line-height: 1.7;
-  color: #d1d5db;
+  line-height: 1.75;
+  color: #e5e7eb;
+  text-shadow: 0 0 6px rgba(56, 189, 248, 0.25);
 }
 
-/* Buttons */
+/* ====== ACTIONS ====== */
 .actions {
   display: flex;
   gap: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 1.6rem;
 }
 
+/* ====== NEON BUTTON ====== */
 .watchlist-btn {
-  padding: 0.7rem 1.4rem;
+  padding: 0.75rem 1.6rem;
   border-radius: 999px;
+  font-weight: 700;
   border: none;
-  font-weight: 600;
   cursor: pointer;
-  background: linear-gradient(135deg, #2563eb, #38bdf8);
-  color: white;
+  color: #020617;
+
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+
+  box-shadow:
+    0 0 15px rgba(56, 189, 248, 0.8),
+    0 0 35px rgba(99, 102, 241, 0.6);
+
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .watchlist-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(56, 189, 248, 0.4);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:
+    0 0 25px rgba(56, 189, 248, 1),
+    0 0 60px rgba(99, 102, 241, 0.9);
 }
 
+/* ====== BACK BUTTON ====== */
 .back-btn {
-  padding: 0.7rem 1.4rem;
+  padding: 0.75rem 1.6rem;
   border-radius: 999px;
-  border: 1px solid #475569;
   background: transparent;
+  border: 1px solid rgba(56, 189, 248, 0.6);
   color: #e5e7eb;
   cursor: pointer;
-  transition: background 0.2s ease, border 0.2s ease;
+
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  transition: all 0.2s ease;
 }
 
 .back-btn:hover {
-  background: rgba(148, 163, 184, 0.1);
-  border-color: #94a3b8;
+  background: rgba(56, 189, 248, 0.15);
+  box-shadow:
+    0 0 20px rgba(56, 189, 248, 0.8),
+    0 0 40px rgba(99, 102, 241, 0.6);
 }
 
-/* Responsive */
+/* ====== RESPONSIVE ====== */
 @media (max-width: 900px) {
   .details-container {
     grid-template-columns: 1fr;
   }
 
   .title {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 }
 

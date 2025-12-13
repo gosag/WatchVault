@@ -2,23 +2,7 @@ import './Card.css'
 import {useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 const Card=({tryMovie,watchList,setWatchList,isToggled})=>{
-const Movie=
-    {
-      adult: false,
-      backdrop_path: "/sT1WD9FLDhox4jzANtaL3svMNXF.jpg",
-      genre_ids: [],
-      id: 568593,
-      original_language: "en",
-      original_title: "Man",
-      overview: "Maggie and her sister form an unusual bond during an encounter with a young man.",
-      popularity: 3.0962,
-      poster_path: "/fOfFksPHhWiRKOoYEIQFhT4RJ2d.jpg",
-      release_date: "2008-01-22",
-      title: "Man",
-      video: false,
-      vote_average: 7.1,
-      vote_count: 23
-    }
+
 const [ratingValue,setRatingValue]=useState('rating-0.png')
 
 function ChangeVoteAverage() {
