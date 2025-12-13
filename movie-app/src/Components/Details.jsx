@@ -1,3 +1,4 @@
+import "./Details.css"
 import { useLocation } from "react-router-dom";
 function Details(){
   const {tryMovie,isToggled} = useLocation().state;
