@@ -1,0 +1,32 @@
+
+.page-container{
+    background: rgba(2, 6, 23, 0.85);
+    min-height:100vh;
+    margin-top:0;
+    
+}
+.watchlist-header{
+    text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+
+  background: linear-gradient(90deg, #38bdf8, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.8);
+}
+.card-container{
+    width:215px;
+    display: flex;
+    flex-direction: column;
+}
+img{
+    width:100%
+}
+.movies-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
