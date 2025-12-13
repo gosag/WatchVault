@@ -20,7 +20,7 @@ function App() {
         setShowMovies(true)
         if (data.results && data.results.length > 0) {
         setMovies(data.results);
-        setShowMovies(true);    // turn it on only if data exists
+        setShowMovies(true);
         }
       }catch(err){
       console.log("error",err);

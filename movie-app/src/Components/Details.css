@@ -151,4 +151,10 @@
     font-size: 2.2rem;
   }
 }
+.watchlist-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 

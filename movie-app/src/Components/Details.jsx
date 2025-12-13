@@ -1,10 +1,11 @@
 import "./Details.css";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Details() {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const [isInWatchList, setIsInWatchList] = useState(false);
   // safely extract tryMovie from route state
   const { tryMovie } = location.state || {};
 
@@ -16,6 +17,28 @@ function Details() {
   const imageUrl = tryMovie.poster_path
     ? `https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`
     : "https://via.placeholder.com/500x750?text=No+Image";
+  useEffect(()=>{
+    const watchList=JSON.parse(localStorage.getItem('watchList'))||[];
+      const exists=watchList.some(movie=>movie.id===tryMovie.id)
+      setIsInWatchList(exists)
+    
+  },[tryMovie.id])
+  const handleAddToWatchList = () => {
+  const watchList =
+    JSON.parse(localStorage.getItem("watchList")) || [];
+
+  if (isInWatchList) {
+    return;
+  }
+
+  const updatedWatchList = [...watchList, tryMovie];
+  localStorage.setItem(
+    "watchList",
+    JSON.stringify(updatedWatchList)
+  );
+
+  setIsInWatchList(true);
+};
 
   return (
     <div className="details-page">
@@ -38,9 +61,14 @@ function Details() {
           <p className="overview">{tryMovie.overview}</p>
 
           <div className="actions">
-            <button className="watchlist-btn">
-              Add to Watchlist
+            <button
+              className="watchlist-btn"
+              onClick={handleAddToWatchList}
+              disabled={isInWatchList}
+            >
+              {isInWatchList ? "In Watchlist ✔" : "Add to Watchlist"}
             </button>
+
 
             <button
               className="back-btn"
