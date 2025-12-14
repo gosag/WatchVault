@@ -1,9 +1,7 @@
 import './Header.css'
 import {useState} from 'react'
 import { Link } from 'react-router-dom'
-const Header=({watchList,isToggled,setIsToggled,movies})=>{
-const [searchValue,setSearchValue]=useState('')
-
+const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
     const filteredValue=movies.length>0?movies.filter((movie)=>movie.title.toLowerCase().includes(searchValue.toLowerCase())):["Movies Loading..."]
     return(
         <div>
@@ -27,7 +25,10 @@ const [searchValue,setSearchValue]=useState('')
          <div>
                 {filteredValue.map((tryMovie)=>(
                   <Link to="/Details" state={{ tryMovie }} className='search-result'>
-                  <div key={tryMovie.id} className='search-result-card'>{tryMovie.title}</div>
+                    <div className='header-title-box'>
+                        <div><i className="fa-solid fa-film"></i></div>
+                        <div key={tryMovie.id} className='search-result-card'>{tryMovie.title}</div>
+                    </div>
                   </Link>
                 ))}
             </div>

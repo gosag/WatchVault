@@ -120,3 +120,24 @@ color: white;
         width:70%;
     }
 }
+.header-title-box{
+    display: flex;
+    margin-left: 10px;
+    transition: all 0.3s ease-in;
+    padding:3px;
+     border-radius: 5px;
+}
+.search-result{
+  color:white;
+  text-decoration: none;
+  transition: all 0.3s ease-in;
+ 
+  
+}
+.header-title-box:hover{
+    background: linear-gradient(135deg, #0ea5e9, #2563eb);
+    transform: translateX(6px);
+}
+.search-result-card{
+   margin-left: 20px;
+}

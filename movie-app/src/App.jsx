@@ -11,6 +11,7 @@ function App() {
   const saved = localStorage.getItem("watchList");
   return saved ? JSON.parse(saved) : []
 });
+  const [searchValue,setSearchValue]=useState('')
   useEffect(()=>{
     const fetchMovies = async()=>{
       try{
@@ -41,9 +42,11 @@ useEffect(()=>{
       isToggled={isToggled}
       setIsToggled={setIsToggled}
       movies={movies}
+      searchValue={searchValue}
+      setSearchValue={setSearchValue}
       />
     <div className='box-wrapper'>
-     { showMovies &&
+     { (showMovies && searchValue.length===0) &&
        movies.map((movie)=>(
           <div key={movie.id}> 
              <Card tryMovie={movie} 
