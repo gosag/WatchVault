@@ -16,14 +16,15 @@ function WatchList() {
     );
         
     }
- if(watchList.length===0){
-    return(
-        <div>
-            <h2>Your watchList is empty</h2>
-            <p>Add some movies first.</p>
-        </div>
-    )
- }
+if (watchList.length === 0) {
+  return (
+    <div className="empty-watchlist">
+      <h2>Your Watchlist is Empty or Loading...</h2>
+      <p>Add some movies first.</p>
+    </div>
+  );
+}
+
  
 
   return(
