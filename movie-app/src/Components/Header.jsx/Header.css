@@ -125,7 +125,10 @@ color: white;
     margin-left: 10px;
     transition: all 0.3s ease-in;
     padding:3px;
-     border-radius: 5px;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
 }
 .search-result{
   color:white;
