@@ -15,7 +15,7 @@ function App() {
   useEffect(()=>{
     const fetchMovies = async()=>{
       try{
-        const res=await fetch("https://api.themoviedb.org/3/movie/popular?api_key=d7603adbe3ce81ba74bd005857d1940d&page=1");
+        const res=await fetch("https://api.themoviedb.org/3/movie/now_playing?api_key=d7603adbe3ce81ba74bd005857d1940d&page=1");
         const data=await res.json();
         setMovies(data.results);
         setShowMovies(true)

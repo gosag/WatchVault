@@ -39,7 +39,7 @@
 }
 .movies-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5rem;
   padding: 1rem;
   margin-left:1px
@@ -78,6 +78,9 @@
   font-size: 1rem;
   margin-bottom: 2rem;
   text-shadow: 0 0 25px rgba(56, 189, 248, 0.8);
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.2em;
+  font-weight: 800;
 
 }
 .empty-watchlist {
@@ -113,3 +116,7 @@
   max-width: 420px;
   line-height: 1.6;
 }
+.movie-rating{
+  font-weight: 700;
+}
+

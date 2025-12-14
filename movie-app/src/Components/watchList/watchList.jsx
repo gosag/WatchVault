@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./WatchList.css";
-
+import { Link } from "react-router-dom";
 function WatchList() {
     const [watchList,setWatchList]=useState([])
     useEffect(()=>{
@@ -48,6 +48,7 @@ if (watchList.length === 0) {
             </div>
         ))}
         </div>
+      
     </div>
   )   
  
