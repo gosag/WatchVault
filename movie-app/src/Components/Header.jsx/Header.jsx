@@ -25,7 +25,7 @@ const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
          <div>
                 {filteredValue.map((tryMovie)=>(
                   <Link to="/Details" state={{ tryMovie }} className='search-result'>
-                    <div className='header-title-box'>
+                    <div className={`header-title-box ${!isToggled?"search-list-color":""}`}>
                         <div><i className="fa-solid fa-film"></i></div>
                         <div key={tryMovie.id} className='search-result-card'>{tryMovie.title}</div>
                     </div>
