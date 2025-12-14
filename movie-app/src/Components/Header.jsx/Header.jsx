@@ -2,7 +2,7 @@ import './Header.css'
 import {useState} from 'react'
 import { Link } from 'react-router-dom'
 const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
-    const filteredValue=movies.length>0?movies.filter((movie)=>movie.title.toLowerCase().includes(searchValue.toLowerCase())):[]
+    const filteredValue=movies.length>0?movies.filter((movie)=>movie.title.toLowerCase().includes(searchValue.toLowerCase())):[];
     return(
         <div>
         <div className="header-container">

@@ -3,6 +3,11 @@ import "./WatchList.css";
 import { Link } from "react-router-dom";
 function WatchList() {
     const [watchList,setWatchList]=useState([])
+    const [toggle,setToggle]=useState( localStorage.getItem('isToggled') === 'true'||false)
+    useEffect(() => {
+    localStorage.setItem('isToggled', toggle);
+  }, [toggle]);
+
     useEffect(()=>{
         const storedList=JSON.parse(localStorage.getItem('watchList'))||[];
         setWatchList(storedList)
@@ -25,10 +30,9 @@ if (watchList.length === 0) {
   );
 }
 
- 
 
   return(
-    <div className="page-container">
+    <div className={`page-container ${!toggle?"bright-watchlist":""}`}>
         <h2 className="watchlist-header">My watchlist</h2>
         <div className="movies-container">
         {watchList.map((movie)=>(

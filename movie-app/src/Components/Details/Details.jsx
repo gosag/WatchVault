@@ -6,10 +6,8 @@ function Details() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isInWatchList, setIsInWatchList] = useState(false);
-  // safely extract tryMovie from route state
   const { tryMovie } = location.state || {};
-
-  // guard: user refreshed or accessed directly
+    const [toggle,setToggle]=useState( localStorage.getItem('isToggled') === 'true'||false)
   if (!tryMovie) {
     return <Navigate to="/" replace />;
   }
@@ -41,15 +39,15 @@ function Details() {
 };
 
   return (
-    <div className="details-page">
-      <div className="details-container">
+    <div className={`details-page ${!toggle?"bright-details":""}`}>
+      <div className={`details-container ${!toggle?"bright-details-container":""}`}>
         {/* Poster */}
         <div className="poster">
           <img src={imageUrl} alt={tryMovie.title} />
         </div>
 
         {/* Info */}
-        <div className="info">
+        <div className={`info ${!toggle?"bright-info":""}`}>
           <h1 className="title">{tryMovie.title}</h1>
 
           <div className="meta">

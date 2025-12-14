@@ -9,6 +9,7 @@
   align-items: center;
   padding: 2rem;
   color: #e5e7eb;
+  transition: background 0.3s, color 0.3s;
 }
 
 .details-container {
@@ -19,16 +20,15 @@
   gap: 2rem;
   padding: 2rem;
   border-radius: 22px;
-
   background: rgba(2, 6, 23, 0.85);
   backdrop-filter: blur(16px);
-
   box-shadow:
     0 0 40px rgba(56, 189, 248, 0.15),
     inset 0 0 30px rgba(56, 189, 248, 0.05);
-
   border: 1px solid rgba(56, 189, 248, 0.25);
+  transition: background 0.3s, color 0.3s;
 }
+
 .poster img {
   width: 100%;
   border-radius: 18px;
@@ -41,23 +41,21 @@
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  transition: color 0.3s;
 }
 
 .title {
   font-size: 2.7rem;
   font-weight: 800;
   letter-spacing: 0.5px;
-
   background: linear-gradient(90deg, #38bdf8, #6366f1, #38bdf8);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: 'Montserrat', sans-serif;
-
   text-shadow:
     0 0 12px rgba(56, 189, 248, 0.8),
     0 0 30px rgba(99, 102, 241, 0.6);
-
   animation: neonFlow 4s linear infinite;
 }
 
@@ -66,6 +64,7 @@
     background-position: 200% center;
   }
 }
+
 .meta {
   display: flex;
   flex-wrap: wrap;
@@ -74,6 +73,7 @@
   color: #c7d2fe;
   text-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
 }
+
 .overview {
   font-size: 1rem;
   line-height: 1.75;
@@ -87,48 +87,83 @@
   margin-top: 1.6rem;
 }
 
-.watchlist-btn {
+.watchlist-btn,
+.back-btn,
+.toggle-btn {
   padding: 0.75rem 1.6rem;
   border-radius: 999px;
   font-weight: 700;
-  border: none;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.watchlist-btn {
+  border: none;
   color: #020617;
-
   background: linear-gradient(135deg, #38bdf8, #6366f1);
-
-  box-shadow:
-    0 0 15px rgba(56, 189, 248, 0.8),
-    0 0 35px rgba(99, 102, 241, 0.6);
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.8), 0 0 35px rgba(99, 102, 241, 0.6);
 }
 
 .watchlist-btn:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow:
-    0 0 25px rgba(56, 189, 248, 1),
-    0 0 60px rgba(99, 102, 241, 0.9);
+  box-shadow: 0 0 25px rgba(56, 189, 248, 1), 0 0 60px rgba(99, 102, 241, 0.9);
+}
+
+.watchlist-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .back-btn {
-  padding: 0.75rem 1.6rem;
-  border-radius: 999px;
   background: transparent;
   border: 1px solid rgba(56, 189, 248, 0.6);
   color: #e5e7eb;
-  cursor: pointer;
-
   box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
-  transition: all 0.2s ease;
 }
 
 .back-btn:hover {
   background: rgba(56, 189, 248, 0.15);
-  box-shadow:
-    0 0 20px rgba(56, 189, 248, 0.8),
-    0 0 40px rgba(99, 102, 241, 0.6);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.8), 0 0 40px rgba(99, 102, 241, 0.6);
 }
+
+.toggle-btn {
+  background: linear-gradient(135deg, #facc15, #f97316);
+  border: none;
+  color: #020617;
+}
+
+.toggle-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.bright-details {
+  background:
+    radial-gradient(circle at top, #ffffff 0%, #e0e0e0 40%),
+    linear-gradient(135deg, #e0e0e0, #ffffff);
+  color: #111;
+}
+
+.bright-details-container {
+  background:
+    radial-gradient(circle at top, #ffffff 0%, #e0e0e0 40%),
+    linear-gradient(135deg, #e0e0e0, #ffffff);
+  border-radius: 22px;
+  padding: 2rem;
+  box-shadow:
+    0 0 40px rgba(56, 189, 248, 0.15),
+    inset 0 0 30px rgba(56, 189, 248, 0.05);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.bright-info,
+.bright-info .title,
+.bright-info .meta,
+.bright-info .overview {
+  color: #111 !important;
+  text-shadow: none !important;
+}
+
 
 @media (max-width: 900px) {
   .details-container {
@@ -139,11 +174,29 @@
     font-size: 2.2rem;
   }
 }
-.watchlist-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  box-shadow: none;
+.back-btn {
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(56, 189, 248, 0.6);
+  color: #e5e7eb; 
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  transition: all 0.2s ease;
 }
 
+.back-btn:hover {
+  background: rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.8),
+              0 0 40px rgba(99, 102, 241, 0.6);
+}
+.bright-details .back-btn {
+  color: #111;
+  border: 1px solid rgba(0,0,0,0.3);
+  background: rgba(255,255,255,0.2);
+}
 
-
+.bright-details .back-btn:hover {
+  background: rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
