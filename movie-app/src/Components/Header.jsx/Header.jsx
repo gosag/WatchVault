@@ -2,13 +2,22 @@ import './Header.css'
 import {useState} from 'react'
 import { Link } from 'react-router-dom'
 const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
-    const filteredValue=movies.length>0?movies.filter((movie)=>movie.title.toLowerCase().includes(searchValue.toLowerCase())):["Movies Loading..."]
+    const filteredValue=movies.length>0?movies.filter((movie)=>movie.title.toLowerCase().includes(searchValue.toLowerCase())):[]
     return(
         <div>
         <div className="header-container">
             <div className='inner-header-container'>
-            <input className='search-input' value={searchValue} onChange={(e)=>setSearchValue(e.target.value)} type="text"  placeholder="Search Movies"/>
-            {/* <button className="search-button"><i className="fa-solid fa-magnifying-glass"></i></button> */}
+                <input className='search-input' 
+                    value={searchValue} 
+                    onChange={(e)=>setSearchValue(e.target.value)} 
+                    type="text"  
+                    placeholder="Search Movies"/>
+                {searchValue.length>0 &&
+                    <div className={`cancel-button`}
+                    onClick={()=>{setSearchValue('')}}><i class="fa-solid fa-xmark-circle"></i>
+                    </div>
+                }
+                
             </div>
             <Link to={"/watchList"}>
                 <button className="search-button watchlist">
@@ -21,15 +30,16 @@ const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
             </div> 
             
         </div>
-        {searchValue.length>0 &&
-         <div>
+        {(searchValue.length>0 ) &&
+         <div>  
+               <div className={`match-not-found ${isToggled?"no-watch-light-theme":""}`}>{filteredValue.length===0?"Match not found":""}</div>
                 {filteredValue.map((tryMovie)=>(
                   <Link to="/Details" state={{ tryMovie }} className='search-result'>
                     <div className={`header-title-box ${!isToggled?"search-list-color":""}`}>
                         <div><i className="fa-solid fa-film"></i></div>
                         <div key={tryMovie.id} className='search-result-card'>{tryMovie.title}</div>
                     </div>
-                  </Link>
+                  </Link>   
                 ))}
             </div>
         }
