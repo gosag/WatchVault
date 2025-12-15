@@ -3,6 +3,7 @@ import './App.css'
 import Card from './Components/Card/Card.jsx'
 import Header from './Components/Header.jsx/Header.jsx'
 function App() {
+  const [countPage,setCountPage]=useState(1)
   const [movies,setMovies]=useState([])
   const [showMovies,setShowMovies]=useState(false)
   const [isToggled,setIsToggled]=useState(
@@ -11,11 +12,14 @@ function App() {
   const saved = localStorage.getItem("watchList");
   return saved ? JSON.parse(saved) : []
 });
+const nextPage=()=>{
+  setCountPage(prev=>prev+1)
+}
   const [searchValue,setSearchValue]=useState('')
   useEffect(()=>{
     const fetchMovies = async()=>{
       try{
-        const res=await fetch("https://api.themoviedb.org/3/movie/now_playing?api_key=d7603adbe3ce81ba74bd005857d1940d&page=1");
+        const res=await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=d7603adbe3ce81ba74bd005857d1940d&page=${countPage}`);
         const data=await res.json();
         setMovies(data.results);
         setShowMovies(true)
@@ -29,7 +33,7 @@ function App() {
     }
     fetchMovies();
     return ()=>{console.log("cleanup")};  
-  },[])
+  },[countPage])
   useEffect(() => {
   localStorage.setItem("watchList", JSON.stringify(watchList));
 }, [watchList]);
@@ -37,6 +41,7 @@ useEffect(()=>{
   localStorage.setItem('isToggled',isToggled)
 },[isToggled])
   return (
+    <div>
     <div className={`bigger-container ${isToggled?"dim-light":''}`}>
       <Header watchList={watchList}
       isToggled={isToggled}
@@ -58,6 +63,12 @@ useEffect(()=>{
           </div>
         ))
       }
+    </div>
+    <div className='page-change-buttons'>
+    {countPage>1 && <button onClick={()=>{setCountPage(prev=>prev-1)}}>Prev page</button>}
+    <button onClick={()=>{setCountPage(1)}}>1</button>
+    <button onClick={()=>{setCountPage(prev=>prev+1)}}>Next page</button>
+    </div>
     </div>
     </div>
   )

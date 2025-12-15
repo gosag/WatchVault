@@ -32,19 +32,21 @@ const Card = ({ tryMovie, watchList, setWatchList, isToggled }) => {
       setWatchList(prev => [...prev, tryMovie]);
     }
   }
-
+const imageUrl = tryMovie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`
+    : "https://via.placeholder.com/500x750?text=No+Image";
   return (
     <div className={`card ${isToggled ? "dim-light-card" : ""}`}>
       <div className="inner-card-container">
         <div className="image-wrap">
           <img
             className="movie-poster blur"
-            src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${imageUrl}`}
             alt={tryMovie.title}
           />
           <img
             className="movie-poster main"
-            src={`https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${imageUrl}`}
             alt={tryMovie.title}
           />
         </div>
