@@ -24,7 +24,7 @@ function WatchList() {
 if (watchList.length === 0) {
   return (
     <div className="empty-watchlist">
-      <h2>Your Watchlist is Empty or Loading...</h2>
+      <h2>Your Watchlist is Empty</h2>
       <p>Add some movies first.</p>
     </div>
   );
