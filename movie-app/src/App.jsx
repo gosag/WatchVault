@@ -3,7 +3,7 @@ import './App.css'
 import Card from './Components/Card/Card.jsx'
 import Header from './Components/Header.jsx/Header.jsx'
 function App() {
-  const [countPage,setCountPage]=useState(1)
+  const [countPage,setCountPage]=useState(JSON.parse(localStorage.getItem('countPage'))||1)
   const [movies,setMovies]=useState([])
   const [showMovies,setShowMovies]=useState(false)
   const [isToggled,setIsToggled]=useState(
@@ -12,9 +12,7 @@ function App() {
   const saved = localStorage.getItem("watchList");
   return saved ? JSON.parse(saved) : []
 });
-const nextPage=()=>{
-  setCountPage(prev=>prev+1)
-}
+
   const [searchValue,setSearchValue]=useState('')
   useEffect(()=>{
     const fetchMovies = async()=>{
@@ -40,6 +38,9 @@ const nextPage=()=>{
 useEffect(()=>{
   localStorage.setItem('isToggled',isToggled)
 },[isToggled])
+useEffect(()=>{
+  localStorage.setItem('countPage',JSON.stringify(countPage))
+})
   return (
     <div>
     <div className={`bigger-container ${isToggled?"dim-light":''}`}>
@@ -66,7 +67,8 @@ useEffect(()=>{
     </div>
     <div className='page-change-buttons'>
     {countPage>1 && <button onClick={()=>{setCountPage(prev=>prev-1)}}>Prev page</button>}
-    <button onClick={()=>{setCountPage(1)}}>1</button>
+    <button onClick={()=>{setCountPage(1)}}>Page 1</button>
+    <button>Current page: {countPage}</button>
     <button onClick={()=>{setCountPage(prev=>prev+1)}}>Next page</button>
     </div>
     </div>
