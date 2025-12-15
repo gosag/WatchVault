@@ -67,7 +67,7 @@ useEffect(()=>{
     </div>
     <div className='page-change-buttons'>
     {countPage>1 && <button onClick={()=>{setCountPage(prev=>prev-1)}}>Prev page</button>}
-    <button onClick={()=>{setCountPage(1)}}>Page 1</button>
+    {countPage!==1 && <button onClick={()=>{setCountPage(1)}}>1</button>}
     <button>Current page: {countPage}</button>
     <button onClick={()=>{setCountPage(prev=>prev+1)}}>Next page</button>
     </div>

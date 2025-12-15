@@ -15,6 +15,7 @@ html, body {
      width:100%;
      margin-top:0px;
      background: linear-gradient(135deg, #fdfbff 0%, #f3e8ff 40%, #ffe7f4 100%);
+     padding-bottom: 10px;
   }
 .box-wrapper {
   display: flex;
@@ -25,4 +26,56 @@ html, body {
 .dim-light{
   background: linear-gradient(135deg, #1b0f11, #2a181b);
 
-}  
+} 
+.page-change-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 2.5rem 0;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+.page-change-buttons button {
+  padding: 0.55rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+
+  color: #e5e7eb;
+  background: linear-gradient(145deg, #020617, #020617);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.06),
+    0 4px 12px rgba(0,0,0,0.6);
+
+  transition: all 0.25s ease;
+}
+
+.page-change-buttons button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(145deg, #020617, #0f172a);
+  box-shadow:
+    inset 0 0 0 1px rgba(56,189,248,0.3),
+    0 6px 18px rgba(0,0,0,0.8);
+}
+
+.page-change-buttons button:active {
+  transform: scale(0.96);
+}
+
+/* Current page button */
+.page-change-buttons button:nth-child(3) {
+  cursor: default;
+  pointer-events: none;
+
+  color: #38bdf8;
+  font-weight: 600;
+
+  background: linear-gradient(135deg, #0f172a, #020617);
+  box-shadow:
+    inset 0 0 0 1px rgba(56,189,248,0.6),
+    0 0 20px rgba(56,189,248,0.25);
+}
