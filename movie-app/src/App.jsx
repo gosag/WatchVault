@@ -21,8 +21,6 @@ function App() {
       try{
         const res=await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=d7603adbe3ce81ba74bd005857d1940d&page=${countPage}`);
         const data=await res.json();
-        setMovies(data.results);
-        setShowMovies(true)
         if (data.results && data.results.length > 0) {
         setMovies(data.results);
         setShowMovies(true);
@@ -46,10 +44,16 @@ useEffect(()=>{
 function MovieSceleton(){
   return(
     <div className='card'>
-      <div>Wait the data loading...</div>
-      {/* poster */}
-      <Skeleton height={240} width={240}/>
-     </div>
+         {/* poster */}
+        <Skeleton width={160} height={240} borderRadius={10} margin-top={15}
+         />
+         {/* title */}
+        <Skeleton width={175} height={24.85} margin-left={12} />
+        {/* star */}
+        <Skeleton width={101} height={20} margin-top={4}/>
+        {/* Details */}
+        <Skeleton width={84} height={37} margin-top={8} margin-bottom={10} padding={14} borderRadius={20} />
+    </div>
   )
 }
   return (
