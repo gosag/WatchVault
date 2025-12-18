@@ -7,7 +7,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 function App() {
   const [countPage,setCountPage]=useState(JSON.parse(localStorage.getItem('countPage'))||1)
   const [movies,setMovies]=useState([])
-  const [showMovies,setShowMovies]=useState(false)
+  const [loading,setLoading]=useState(false)
   const [isToggled,setIsToggled]=useState(
   localStorage.getItem('isToggled') === 'true'||false)
   const [watchList, setWatchList] = useState(() => {
@@ -19,14 +19,15 @@ function App() {
   useEffect(()=>{
     const fetchMovies = async()=>{
       try{
+        setLoading(true);
         const res=await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=d7603adbe3ce81ba74bd005857d1940d&page=${countPage}`);
         const data=await res.json();
-        if (data.results && data.results.length > 0) {
-        setMovies(data.results);
-        setShowMovies(false);
-        }
+        setMovies(data.results||[]);
+        ;
       }catch(err){
       console.log("error",err);
+    }finally{
+      setLoading(false)
     }
     }
     fetchMovies();
@@ -61,12 +62,12 @@ function MovieLoadingSceleton(){
         {/* star */}
         <Skeleton width={101} height={20}/>
         {/* Details */}
-        <Skeleton width={84} height={37} margin-top={8}
+        <Skeleton width={84} height={37}
          style={{marginTop:8,
                  marginBottom:10,
-                 padding:1
+                 padding:10
          }}
-        margin-bottom={10} padding={14} borderRadius={20} />
+        borderRadius={20} />
     </div>
     </div>
   )
@@ -82,7 +83,7 @@ function MovieLoadingSceleton(){
       setSearchValue={setSearchValue}
       />
     <div className='box-wrapper'>
-    {!showMovies?
+    {loading?
     Array(20).
     fill(0)
     .map((_, i) => <MovieLoadingSceleton key={i} />)
@@ -100,10 +101,10 @@ function MovieLoadingSceleton(){
       }
     </div>
     <div className='page-change-buttons'>
-    {countPage>1 && <button onClick={()=>{setCountPage(prev=>prev-1)}}>Prev page</button>}
+    {countPage>1 && <button onClick={()=>{setCountPage(prev=>prev-1); setLoading(prev=>!prev)} }>Prev page</button>}
     {countPage!==1 && <button onClick={()=>{setCountPage(1)}}>1</button>}
     <button>Current page: {countPage}</button>
-    <button onClick={()=>{setCountPage(prev=>prev+1)}}>Next page</button>
+    <button onClick={()=>{setCountPage(prev=>prev+1); setLoading(prev=>!prev)}}>Next page</button>
     </div>
     </div>
     </div>
