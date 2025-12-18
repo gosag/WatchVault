@@ -66,7 +66,7 @@ html, body {
   transform: scale(0.96);
 }
 
-/* Current page button */
+
 .page-change-buttons button:nth-child(3) {
   cursor: default;
   pointer-events: none;
