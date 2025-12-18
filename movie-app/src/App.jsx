@@ -99,6 +99,7 @@ function MovieLoadingSceleton(){
           </div>
         ))
       }
+      
     </div>
     <div className='page-change-buttons'>
     {countPage>1 && <button onClick={()=>{setCountPage(prev=>prev-1); setLoading(prev=>!prev)} }>Prev page</button>}

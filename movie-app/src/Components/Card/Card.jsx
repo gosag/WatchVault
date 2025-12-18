@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const Card = ({ tryMovie, watchList, setWatchList, isToggled }) => {
   const [ratingValue, setRatingValue] = useState("rating-0.png");
+  const [placeholderImg,setPlaceholderImg]=useState("")
 
   useEffect(() => {
     const vote = tryMovie.vote_average;
@@ -22,7 +23,9 @@ const Card = ({ tryMovie, watchList, setWatchList, isToggled }) => {
   const isFavorite = watchList.some(
     movie => movie.id === tryMovie.id
   );
-
+  useEffect(()=>{
+   setPlaceholderImg()
+  },[tryMovie.poster_path])
   function toggleWatchList() {
     if (isFavorite) {
       setWatchList(prev =>
