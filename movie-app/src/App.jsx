@@ -2,6 +2,8 @@ import { useState,useEffect} from 'react'
 import './App.css'
 import Card from './Components/Card/Card.jsx'
 import Header from './Components/Header.jsx/Header.jsx'
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 function App() {
   const [countPage,setCountPage]=useState(JSON.parse(localStorage.getItem('countPage'))||1)
   const [movies,setMovies]=useState([])
@@ -41,6 +43,15 @@ useEffect(()=>{
 useEffect(()=>{
   localStorage.setItem('countPage',JSON.stringify(countPage))
 })
+function MovieSceleton(){
+  return(
+    <div className='card'>
+      <div>Wait the data loading...</div>
+      {/* poster */}
+      <Skeleton height={240} width={240}/>
+     </div>
+  )
+}
   return (
     <div>
     <div className={`bigger-container ${isToggled?"dim-light":''}`}>
@@ -52,7 +63,10 @@ useEffect(()=>{
       setSearchValue={setSearchValue}
       />
     <div className='box-wrapper'>
-     { (showMovies && searchValue.length===0) &&
+    {!showMovies?
+    
+      <MovieSceleton/>
+     : searchValue.length===0 &&
        movies.map((movie)=>(
           <div key={movie.id}> 
              <Card tryMovie={movie} 

@@ -3,7 +3,7 @@
     min-height:100vh;
     margin-top:0;
   padding: 2rem;
-  background: radial-gradient(circle at top, #020617, #000);
+  background:hsl(0, 0%, 0%);
   color: #e5e7eb;
  
     
@@ -29,6 +29,7 @@
 
      border: 1px solid rgba(56, 189, 248, 0.25);
      border-radius: 15px;
+    
 }
 .image-contain img{
     width:100%;
@@ -39,7 +40,7 @@
 }
 .movies-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
   padding: 1rem;
   margin-left:1px
