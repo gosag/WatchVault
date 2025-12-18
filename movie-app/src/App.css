@@ -79,3 +79,6 @@ html, body {
     inset 0 0 0 1px rgba(56,189,248,0.6),
     0 0 20px rgba(56,189,248,0.25);
 }
+.skeleton-container{
+  padding:20px
+}

@@ -23,7 +23,7 @@ function App() {
         const data=await res.json();
         if (data.results && data.results.length > 0) {
         setMovies(data.results);
-        setShowMovies(true);
+        setShowMovies(false);
         }
       }catch(err){
       console.log("error",err);
@@ -41,18 +41,33 @@ useEffect(()=>{
 useEffect(()=>{
   localStorage.setItem('countPage',JSON.stringify(countPage))
 })
-function MovieSceleton(){
+function MovieLoadingSceleton(){
   return(
     <div className='card'>
+      <div className='inner-card-container skeleton-container'>
          {/* poster */}
-        <Skeleton width={160} height={240} borderRadius={10} margin-top={15}
+        <Skeleton width={160} height={240} borderRadius={10}
+        style={{
+            marginTop:15,
+            padding:10,
+        }}
          />
          {/* title */}
-        <Skeleton width={175} height={24.85} margin-left={12} />
+        <Skeleton width={175} height={24.85} 
+        style={{
+          marginLeft:12
+        }}
+         />
         {/* star */}
-        <Skeleton width={101} height={20} margin-top={4}/>
+        <Skeleton width={101} height={20}/>
         {/* Details */}
-        <Skeleton width={84} height={37} margin-top={8} margin-bottom={10} padding={14} borderRadius={20} />
+        <Skeleton width={84} height={37} margin-top={8}
+         style={{marginTop:8,
+                 marginBottom:10,
+                 padding:1
+         }}
+        margin-bottom={10} padding={14} borderRadius={20} />
+    </div>
     </div>
   )
 }
@@ -68,8 +83,9 @@ function MovieSceleton(){
       />
     <div className='box-wrapper'>
     {!showMovies?
-    
-      <MovieSceleton/>
+    Array(20).
+    fill(0)
+    .map((_, i) => <MovieLoadingSceleton key={i} />)
      : searchValue.length===0 &&
        movies.map((movie)=>(
           <div key={movie.id}> 
