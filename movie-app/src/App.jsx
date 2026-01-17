@@ -4,6 +4,7 @@ import Card from './Components/Card/Card.jsx'
 import Header from './Components/Header.jsx/Header.jsx'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+/*We aare so back baby */
 function App() {
   const [countPage,setCountPage]=useState(JSON.parse(localStorage.getItem('countPage'))||1)
   const [movies,setMovies]=useState([])

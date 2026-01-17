@@ -41,11 +41,13 @@ const imageUrl = tryMovie.poster_path
         <div className="image-wrap">
           <img
             className="movie-poster blur"
+            loading="lazy"
             src={`https://image.tmdb.org/t/p/w500${imageUrl}`}
             alt={tryMovie.title}
           />
           <img
             className="movie-poster main"
+            loading="lazy"
             src={`https://image.tmdb.org/t/p/w500${imageUrl}`}
             alt={tryMovie.title}
           />
