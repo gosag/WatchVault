@@ -4,12 +4,14 @@ function App() {
 const [form, setForm] = useState({
   firstName:'',
   lastName:'',
-  email:''})
+  email:'',
+  goBy:'',
+})
   return (
     <>
       <div>
         <form onSubmit={
-          (e) => {e.preventDefault(),
+          (e) => {e.preventDefault();
           console.log(form)
           }}>
           <input
@@ -18,12 +20,20 @@ const [form, setForm] = useState({
             value={form.firstName}
             onChange={(e) => setForm({...form, firstName: e.target.value})}
           />
+
           <br/>
           <input
             type='text'
             placeholder='Last Name'
             value={form.lastName}
             onChange={(e) => setForm({...form, lastName: e.target.value})}
+          />
+          <br/>
+          <input
+            type="text"
+            placeholder="Go by"
+            value={form.goBy}
+            onChange={(e)=>{setForm({...form,goBy:e.target.value})}}
           />
           <br/>
           <input
@@ -40,6 +50,7 @@ const [form, setForm] = useState({
       <div>
         <h2>First Name: {form.firstName}</h2>
         <h2>Last Name: {form.lastName}</h2>
+        <h2>Go By: {form.goBy}</h2>
         <h2>Email: {form.email}</h2>
       </div>
     </>
