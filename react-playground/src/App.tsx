@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import './App.css'
 function App() {
 const [form, setForm] = useState({
@@ -6,7 +6,20 @@ const [form, setForm] = useState({
   lastName:'',
   email:'',
   goBy:'',
-})
+});
+const [data, setData] = useState<any>(null);
+useEffect(()=>{
+  async function FetchData(){
+    const res = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+    const data= await res.json();
+    setData(data);
+}
+FetchData();
+},[])
+function handleChange(e:any){
+  setForm({...form, [e.target.name]:e.target.value})
+}
+
   return (
     <>
       <div>
@@ -17,30 +30,30 @@ const [form, setForm] = useState({
           <input
             type='text'
             placeholder='First Name'
-            value={form.firstName}
-            onChange={(e) => setForm({...form, firstName: e.target.value})}
+            name="firstName"
+            onChange={handleChange}
           />
 
           <br/>
           <input
             type='text'
             placeholder='Last Name'
-            value={form.lastName}
-            onChange={(e) => setForm({...form, lastName: e.target.value})}
+            name="lastName"
+            onChange={handleChange}
           />
           <br/>
           <input
             type="text"
-            placeholder="Go by"
-            value={form.goBy}
-            onChange={(e)=>{setForm({...form,goBy:e.target.value})}}
+            placeholder="Goes by"
+            name="goBy"
+            onChange={handleChange}
           />
           <br/>
           <input
             type='email'
             placeholder='Email'
-            value={form.email}
-            onChange={(e) => setForm({...form, email: e.target.value})}
+            name='email'
+            onChange={handleChange}
           />
           <br/>
           <button type='submit'>Submit</button>
@@ -50,9 +63,14 @@ const [form, setForm] = useState({
       <div>
         <h2>First Name: {form.firstName}</h2>
         <h2>Last Name: {form.lastName}</h2>
-        <h2>Go By: {form.goBy}</h2>
+        <h2>Goes By: {form.goBy}</h2>
         <h2>Email: {form.email}</h2>
       </div>
+      {data && (
+        <div>
+          <h2>Todo: {data.title}</h2>
+        </div>
+      )}
     </>
   )
 }
