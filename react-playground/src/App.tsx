@@ -37,6 +37,11 @@ const [form, setForm] = useState({
         </form>
         <h1>Hey B*tch, Guess who is back?</h1>
       </div>
+      <div>
+        <h2>First Name: {form.firstName}</h2>
+        <h2>Last Name: {form.lastName}</h2>
+        <h2>Email: {form.email}</h2>
+      </div>
     </>
   )
 }
