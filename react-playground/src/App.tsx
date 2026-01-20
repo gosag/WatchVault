@@ -8,6 +8,7 @@ const [form, setForm] = useState({
   goBy:'',
 });
 const [data, setData] = useState<any>(null);
+const [count, setCount] = useState(0);
 useEffect(()=>{
   async function FetchData(){
     const res = await fetch('https://jsonplaceholder.typicode.com/todos/1');
@@ -16,6 +17,12 @@ useEffect(()=>{
 }
 FetchData();
 },[])
+/* useEffect(()=>{
+  const timer = setInterval(()=>{
+    setCount(prevState=>prevState + 1);
+  },1000);
+  return () => clearInterval(timer);
+},[]) */
 function handleChange(e:any){
   setForm({...form, [e.target.name]:e.target.value})
 }
@@ -71,6 +78,7 @@ function handleChange(e:any){
           <h2>Todo: {data.title}</h2>
         </div>
       )}
+      <h2>Count: {count} Seconds</h2>
     </>
   )
 }
