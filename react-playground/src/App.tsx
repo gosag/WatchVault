@@ -77,7 +77,6 @@ function handleChange(e:any){
           <h2>Todo: {data.title}</h2>
         </div>
       )}
-      <h2>Count: {count} Seconds</h2>
     </>
   )
 }
