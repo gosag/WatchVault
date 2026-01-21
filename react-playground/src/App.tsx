@@ -8,7 +8,6 @@ const [form, setForm] = useState({
   goBy:'',
 });
 const [data, setData] = useState<any>(null);
-const [count, setCount] = useState(0);
 useEffect(()=>{
   async function FetchData(){
     const res = await fetch('https://jsonplaceholder.typicode.com/todos/1');

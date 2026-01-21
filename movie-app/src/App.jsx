@@ -19,10 +19,13 @@ function App() {
 
   const [searchValue,setSearchValue]=useState('')
   useEffect(()=>{
+    const controller=new AbortController();
     const fetchMovies = async()=>{
       try{
         setLoading(true);
-        const res=await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=d7603adbe3ce81ba74bd005857d1940d&page=${countPage}`);
+        const res=await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=d7603adbe3ce81ba74bd005857d1940d&page=${countPage}`
+        ,{signal:controller.signal}
+        );
         const data=await res.json();
         setMovies(data.results||[]);
         ;
@@ -33,7 +36,7 @@ function App() {
     }
     }
     fetchMovies();
-    return ()=>{console.log("cleanup")};  
+    return ()=>{controller.abort();};  
   },[countPage])
   useEffect(() => {
   localStorage.setItem("watchList", JSON.stringify(watchList));
