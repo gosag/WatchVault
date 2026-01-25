@@ -68,7 +68,7 @@ const imageUrl = tryMovie.poster_path
         </div>
 
         <Link
-          to="/Details"
+          to="Details"
           state={{ tryMovie, isToggled }}
         >
           <button className="full-details">Details</button>

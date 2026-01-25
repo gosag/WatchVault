@@ -9,7 +9,7 @@ function Details() {
   const { tryMovie } = location.state || {};
     const [toggle,setToggle]=useState( localStorage.getItem('isToggled') === 'true'||false)
   if (!tryMovie) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/" replace={true} />;
   }
 
   const imageUrl = tryMovie.poster_path

@@ -4,9 +4,7 @@ import Card from './Components/Card/Card.jsx'
 import Header from './Components/Header.jsx/Header.jsx'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-/*We are so back baby */
-/*i guess it is a little bit hard to be back after a month or so but i can do it*/
-/* understanding the react router */
+
 function App() {
   const [countPage,setCountPage]=useState(JSON.parse(localStorage.getItem('countPage'))||1)
   const [movies,setMovies]=useState([])
@@ -100,7 +98,6 @@ function MovieLoadingSceleton(){
               watchList={watchList}
               setWatchList={setWatchList}
               isToggled={isToggled}
-
              />
           </div>
         ))

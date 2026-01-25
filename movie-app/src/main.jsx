@@ -4,12 +4,17 @@ import './index.css'
 import App from './App.jsx'
 import WatchList from './Components/watchList/watchList.jsx'
 import Details from './Components/Details/Details.jsx'
-import { createBrowserRouter,RouterProvider} from 'react-router-dom'
-const router=createBrowserRouter([
-  {path:"/",element:<App/>},
-  {path:"/watchList",element:<WatchList/>},
-  {path:"/Details",element:<Details/>}
-])
+import { createBrowserRouter,Route,RouterProvider, createRoutesFromElements} from 'react-router-dom'
+import RootLayout from './Components/Layouts/RootLayout.jsx'
+const router=createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout/>}>
+    <Route index element={<App/>}/>
+    <Route path="/watchList" element={<WatchList/>}/>
+    <Route path="/Details" element={<Details/>}/>
+    </Route>
+  ) 
+)
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router}/>
