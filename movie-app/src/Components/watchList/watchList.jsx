@@ -43,7 +43,7 @@ if (watchList.length === 0) {
                 </div>
                 <div className="watchList-info">
                     <div className="watchlist-title">{movie.title}</div>
-                    <div className="movie-rating">⭐ {movie.vote_average}</div>
+                    <div className="movie-rating">{movie.vote_average}</div>
                 </div>
                 <button className="remove-btn" onClick={()=>{
                     RemoveHandler(movie.id)
