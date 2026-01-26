@@ -58,3 +58,8 @@ button:hover{
 .register-link:hover{
     text-decoration: underline;
 }
+.go-back{
+    margin-top:10px;
+    color: #007bff;
+    text-decoration: none;
+}

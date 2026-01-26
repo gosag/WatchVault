@@ -1,52 +1,59 @@
+import { useState } from "react";
 import "./Login.css";
-import { Form, useActionData, redirect,Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 export default function Login() {
-  const data = useActionData();
+  const [form, setForm] = useState({ username: "", password: "" });
+  const navigate = useNavigate(); // for programmatic navigation
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    if (!form.username || !form.password) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    if (savedUser?.username === form.username && savedUser?.password === form.password) {
+      alert("Login successful!");
+      navigate("/"); // go to home page
+    } else {
+      alert("Invalid username or password");
+    }
+  };
+
   return (
     <div className="login-page">
       <h2 className="login-title">Login Page</h2>
-      <Form method="post" className="login-form">
+      <form onSubmit={handleSubmit} className="login-form">
         <label htmlFor="username">Username:</label>
-        <input type="text" 
-        id="username" 
-        name="username" 
-        minLength="3"
-        maxLength="15"
-        required />
+        <input
+          type="text"
+          id="username"
+          value={form.username}
+          onChange={(e) => setForm({ ...form, username: e.target.value })}
+          minLength="3"
+          maxLength="15"
+          required
+        />
 
         <label htmlFor="password">Password:</label>
-        <input type="password" 
-        id="password"
-        minLength="6"
-        maxLength="20"
-        name="password" required />
+        <input
+          type="password"
+          id="password"
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          minLength="6"
+          maxLength="20"
+          required
+        />
 
         <button type="submit">Login</button>
-        <Link className="register-link">Don't have an account? Register</Link>
-      </Form>
-
-      {data?.error && <p style={{ color: "red" }}>{data.error}</p>}
+        <Link className="register-link" to="/register">
+          Don't have an account? Register
+        </Link>
+      </form>
     </div>
   );
 }
-
-export const loginAction = async ({ request }) => {
-  const formData = await request.formData();
-  const submission = {
-    username: formData.get("username"),
-    password: formData.get("password"),
-  };
-
-  if (!submission.username || !submission.password) {
-    return { error: "Please fill all the fields" };
-  }
-  else{
-    
-  // For demo purposes only (real app would call API here)
-  localStorage.setItem("user", JSON.stringify(submission));
-  alert("Login successful!");
-  }
-
-
-  return redirect("/");
-};

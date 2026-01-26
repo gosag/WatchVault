@@ -3,6 +3,7 @@ import {useState} from 'react'
 import { Link } from 'react-router-dom'
 const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
     const filteredValue=movies.length>0?movies.filter((movie)=>movie.title.toLowerCase().includes(searchValue.toLowerCase())):[];
+    const logged=localStorage.getItem("user")!==null;
     return(
         <div>
         <div className="header-container">
@@ -16,10 +17,9 @@ const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
                     <div className={`cancel-button`}
                     onClick={()=>{setSearchValue('')}}><i class="fa-solid fa-xmark-circle"></i>
                     </div>
-                }
-                
+                }   
             </div>
-            <Link to={"/watchList"}>
+            <Link to={!logged? "/watchList" : "/login"}>
                 <button className="search-button watchlist">
                     <i className="fa-solid fa-bookmark"></i>
                 </button>
