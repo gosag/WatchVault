@@ -5,7 +5,7 @@ export default function Register() {
   const data = useActionData();
   return (
     <div className="login-page">
-      <h2 className="login-title">Register Page</h2>
+      <h2 className="login-title">Welcome to movie app!</h2>
       <Form method="post" className="login-form">
         <label htmlFor="username">Username:</label>
         <input type="text" 
