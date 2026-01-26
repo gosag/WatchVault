@@ -86,6 +86,10 @@
     padding: 10px 20px;
     box-shadow: 0 4px 12px rgba(124, 77, 255, 0.25);
 }
+.full-details:hover{
+    background: linear-gradient(135deg, #5e2eff, #7c4dff);
+    box-shadow: 0 6px 16px rgba(94, 46, 255, 0.35);
+}
 .fav-container{
     position:absolute;
     top:77%;

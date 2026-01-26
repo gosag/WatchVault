@@ -54,7 +54,7 @@ export default function Login() {
         <Link className="register-link" to="/register"
         state={{isToggled:isToggled}}
         >
-          Don't have an account? Register
+          Don't have an account? Create one
         </Link>
         <Link className="go-back" to="/">Go Back</Link>
       </form>
