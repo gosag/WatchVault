@@ -89,5 +89,4 @@ const imageUrl = tryMovie.poster_path
     </div>
   );
 };
-
 export default Card;
