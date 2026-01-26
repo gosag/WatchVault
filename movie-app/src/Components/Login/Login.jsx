@@ -1,19 +1,28 @@
 import "./Login.css";
-import { Form, useActionData, redirect } from "react-router-dom";
+import { Form, useActionData, redirect,Link } from "react-router-dom";
 export default function Login() {
   const data = useActionData();
-
   return (
     <div className="login-page">
-      <h2>Login Page</h2>
+      <h2 className="login-title">Login Page</h2>
       <Form method="post" className="login-form">
         <label htmlFor="username">Username:</label>
-        <input type="text" id="username" name="username" required />
+        <input type="text" 
+        id="username" 
+        name="username" 
+        minLength="3"
+        maxLength="15"
+        required />
 
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" required />
+        <input type="password" 
+        id="password"
+        minLength="6"
+        maxLength="20"
+        name="password" required />
 
         <button type="submit">Login</button>
+        <Link className="register-link">Don't have an account? Register</Link>
       </Form>
 
       {data?.error && <p style={{ color: "red" }}>{data.error}</p>}
