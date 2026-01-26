@@ -1,14 +1,16 @@
-import { useState,useEffect} from 'react'
+import { useState,useEffect, useCallback} from 'react'
 import './App.css'
 import Card from './Components/Card/Card.jsx'
 import Header from './Components/Header.jsx/Header.jsx'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useInfiniteScroll } from './hooks/useInfiniteScroll';
 
 function App() {
-  const [countPage,setCountPage]=useState(JSON.parse(localStorage.getItem('countPage'))||1)
+  const [countPage,setCountPage]=useState(1)
   const [movies,setMovies]=useState([])
-  const [loading,setLoading]=useState(false)
+  const [loading,setLoading]=useState(true) // Start with true for initial load
+  const [hasMore, setHasMore] = useState(true)
   const [isToggled,setIsToggled]=useState(
   localStorage.getItem('isToggled') === 'true'||false)
   const [watchList, setWatchList] = useState(() => {
@@ -17,17 +19,21 @@ function App() {
 });
 
   const [searchValue,setSearchValue]=useState('')
+
+  // Initial load - fetch first page
   useEffect(()=>{
     const controller=new AbortController();
     const fetchMovies = async()=>{
       try{
         setLoading(true);
-        const res=await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=d7603adbe3ce81ba74bd005857d1940d&page=${countPage}`
+        const res=await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=d7603adbe3ce81ba74bd005857d1940d&page=1`
         ,{signal:controller.signal}
         );
         const data=await res.json();
         setMovies(data.results||[]);
-        ;
+        setCountPage(2); // Next page to load
+        // Check if there are more pages (typically TMDB has ~500 pages, but we'll check)
+        setHasMore(data.page < data.total_pages);
       }catch(err){
       console.log("error",err);
     }finally{
@@ -36,16 +42,48 @@ function App() {
     }
     fetchMovies();
     return ()=>{controller.abort();};  
-  },[countPage])
+  },[])
+
+  // Load more movies function for infinite scroll
+  const loadMoreMovies = useCallback(async () => {
+    if (loading || !hasMore) return;
+    
+    const controller = new AbortController();
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `https://api.themoviedb.org/3/movie/now_playing?api_key=d7603adbe3ce81ba74bd005857d1940d&page=${countPage}`,
+        { signal: controller.signal }
+      );
+      const data = await res.json();
+      
+      if (data.results && data.results.length > 0) {
+        setMovies((prevMovies) => [...prevMovies, ...data.results]);
+        setCountPage((prevPage) => prevPage + 1);
+        setHasMore(data.page < data.total_pages);
+      } else {
+        setHasMore(false);
+      }
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        console.log("error", err);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [countPage, loading, hasMore]);
+
+  // Infinite scroll hook
+  const sentinelRef = useInfiniteScroll(loadMoreMovies, hasMore, loading, {
+    threshold: 0.1,
+    rootMargin: '200px', // Start loading 200px before reaching bottom
+  });
   useEffect(() => {
   localStorage.setItem("watchList", JSON.stringify(watchList));
 }, [watchList]);
 useEffect(()=>{
   localStorage.setItem('isToggled',isToggled)
 },[isToggled])
-useEffect(()=>{
-  localStorage.setItem('countPage',JSON.stringify(countPage))
-})
 function MovieLoadingSceleton(){
   return(
     <div className='card'>
@@ -87,12 +125,7 @@ function MovieLoadingSceleton(){
       setSearchValue={setSearchValue}
       />
     <div className='box-wrapper'>
-    {loading?
-    Array(20).
-    fill(0)
-    .map((_, i) => <MovieLoadingSceleton key={i} />)
-     : searchValue.length===0 &&
-       movies.map((movie)=>(
+    {searchValue.length===0 && !loading && movies.length > 0 && movies.map((movie)=>(
           <div key={movie.id}> 
              <Card tryMovie={movie} 
               watchList={watchList}
@@ -100,16 +133,29 @@ function MovieLoadingSceleton(){
               isToggled={isToggled}
              />
           </div>
-        ))
-      }
-      
+        ))}
     </div>
-    <div className='page-change-buttons'>
-    {countPage>1 && <button onClick={()=>{setCountPage(prev=>prev-1); setLoading(prev=>!prev)} }>Prev page</button>}
-    {countPage!==1 && <button onClick={()=>{setCountPage(1)}}>1</button>}
-    <button>Current page: {countPage}</button>
-    <button onClick={()=>{setCountPage(prev=>prev+1); setLoading(prev=>!prev)}}>Next page</button>
-    </div>
+    
+    {/* Loading skeletons - show more on initial load, fewer when loading more */}
+    {loading && searchValue.length === 0 && (
+      <div className='box-wrapper'>
+        {Array(movies.length === 0 ? 20 : 6).fill(0).map((_, i) => (
+          <MovieLoadingSceleton key={`skeleton-${i}`} />
+        ))}
+      </div>
+    )}
+    
+    {/* Infinite scroll sentinel - triggers loadMore when visible */}
+    {searchValue.length === 0 && hasMore && (
+      <div ref={sentinelRef} style={{ height: '20px', width: '100%' }} />
+    )}
+    
+    {/* End of list message */}
+    {searchValue.length === 0 && !hasMore && movies.length > 0 && (
+      <div style={{ textAlign: 'center', padding: '2rem', color: isToggled ? '#e5e7eb' : '#1f2937' }}>
+        <p>You've reached the end! 🎬</p>
+      </div>
+    )}
     </div>
     </div>
   )

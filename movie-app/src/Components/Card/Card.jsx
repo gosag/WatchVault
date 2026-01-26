@@ -47,13 +47,13 @@ const imageUrl = tryMovie.poster_path
           <img
             className="movie-poster blur"
             loading="lazy"
-            src={`https://image.tmdb.org/t/p/w500${imageUrl}`}
+            src={imageUrl}
             alt={tryMovie.title}
           />
           <img
             className="movie-poster main"
             loading="lazy"
-            src={`https://image.tmdb.org/t/p/w500${imageUrl}`}
+            src={imageUrl}
             alt={tryMovie.title}
           />
         </div>
@@ -66,7 +66,7 @@ const imageUrl = tryMovie.poster_path
           <div className="vote-average">
             <img
               className="star-image"
-              src={`../../../ratings/${ratingValue}`}
+              src={`/ratings/${ratingValue}`}
               alt="rating"
             />
           </div>

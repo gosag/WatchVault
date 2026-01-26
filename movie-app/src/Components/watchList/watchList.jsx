@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./WatchList.css";
+import "./watchList.css";
 import { Link } from "react-router-dom";
 function WatchList() {
     const [watchList,setWatchList]=useState([])
