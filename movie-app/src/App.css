@@ -18,10 +18,59 @@ html, body {
      padding-bottom: 10px;
   }
 .box-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  display: grid;
+  /* Default: 2 columns for mobile (mobile-first approach) */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  padding: 0.75rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Responsive Grid Layout */
+/* Small phones (480px - 599px) - 2 columns with better spacing */
+@media (min-width: 480px) {
+  .box-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+/* Tablets portrait (600px - 767px) - 3 columns */
+@media (min-width: 600px) {
+  .box-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+}
+
+/* Tablets landscape / Small desktop (768px - 1023px) - 4 columns */
+@media (min-width: 768px) {
+  .box-wrapper {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+/* Desktop (1024px - 1279px) - 5 columns */
+@media (min-width: 1024px) {
+  .box-wrapper {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+}
+
+/* Large desktop (1280px+) - 6 columns */
+@media (min-width: 1280px) {
+  .box-wrapper {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+  }
 }
 .dim-light{
   background: linear-gradient(135deg, #1b0f11, #2a181b);
