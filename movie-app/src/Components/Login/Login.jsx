@@ -1,5 +1,5 @@
+import "./Login.css";
 import { Form, useActionData, redirect } from "react-router-dom";
-
 export default function Login() {
   const data = useActionData();
 
