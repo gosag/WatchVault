@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-color:hsl(0, 0%, 95%);
 }
 .login-form{
     display: flex;
@@ -13,7 +13,7 @@
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #fff;
+    background-color:hsl(0, 0%, 80%);
     gap:10px;
 }
 #username, #password{
@@ -63,3 +63,49 @@ button:hover{
     color: #007bff;
     text-decoration: none;
 }
+.dark-theme {
+    background-color: hsl(0, 0%, 10%);
+    color: hsl(0, 0%, 90%);
+}
+.dark-theme h2 {
+    color: hsl(0, 0%, 80%);
+}
+
+.dark-form {
+    background-color: hsl(0, 0%, 20%);
+    border: 1px solid hsl(0, 0%, 40%);
+    padding: 1rem;
+}
+
+/* Force child elements to use the color */
+.dark-form label,
+.dark-form input,
+.dark-form button {
+    color: hsl(0, 0%, 80%);
+}
+
+/* Inputs */
+.dark-form input {
+    background-color: hsl(0, 0%, 15%);
+    border: 1px solid hsl(0, 0%, 40%);
+    padding: 0.4rem;
+}
+
+/* Placeholder */
+.dark-form input::placeholder {
+    color: hsl(0, 0%, 60%);
+}
+
+/* Button */
+.dark-form button {
+    background-color: hsl(0, 0%, 40%);
+    color: hsl(0, 0%, 95%);
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+}
+
+.dark-form button:hover {
+    background-color: hsl(0, 0%, 50%);
+}
+

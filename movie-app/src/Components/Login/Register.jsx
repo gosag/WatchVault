@@ -1,12 +1,13 @@
-
-import "./Login.css";
-import { Form, useActionData, redirect,Link } from "react-router-dom";
+import "./Login-and-register.css";
+import { Form, useActionData, redirect,Link ,useLocation} from "react-router-dom";
 export default function Register() {
   const data = useActionData();
+  const location = useLocation();
+  const isToggled = location.state?.isToggled || false;
   return (
-    <div className="login-page">
+    <div className={`login-page ${isToggled ? "dark-theme" : ""}`}>
       <h2 className="login-title">Welcome to movie app!</h2>
-      <Form method="post" className="login-form">
+      <Form method="post" className={`login-form ${isToggled ? "dark-form" : ""}`}>
         <label htmlFor="username">Username:</label>
         <input type="text" 
         id="username" 

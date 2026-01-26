@@ -1,11 +1,12 @@
 import { useState } from "react";
 import "./Login-and-register.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation} from "react-router-dom";
 
 export default function Login() {
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate(); // for programmatic navigation
-
+  const location = useLocation();
+  const isToggled = location.state?.isToggled || false;
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -24,9 +25,9 @@ export default function Login() {
   };
 
   return (
-    <div className="login-page">
+    <div className={`login-page ${isToggled ? "dark-theme" : ""}`}>
       <h2 className="login-title">Welcome back!</h2>
-      <form onSubmit={handleSubmit} className="login-form">
+      <form onSubmit={handleSubmit} className={`login-form ${isToggled ? "dark-form" : ""}`}>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -50,7 +51,9 @@ export default function Login() {
         />
 
         <button type="submit">Login</button>
-        <Link className="register-link" to="/register">
+        <Link className="register-link" to="/register"
+        state={{isToggled:isToggled}}
+        >
           Don't have an account? Register
         </Link>
         <Link className="go-back" to="/">Go Back</Link>

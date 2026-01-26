@@ -19,7 +19,8 @@ const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
                     </div>
                 }   
             </div>
-            <Link to={!logged? "/watchList" : "/login"}>
+            <Link to={logged? "/watchList" : "/login"} 
+            state={{ isToggled: isToggled }}>
                 <button className="search-button watchlist">
                     <i className="fa-solid fa-bookmark"></i>
                 </button>

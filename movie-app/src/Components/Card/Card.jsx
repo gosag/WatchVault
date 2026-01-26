@@ -24,8 +24,8 @@ const Card = ({ tryMovie, watchList, setWatchList, isToggled }) => {
   );
   const LoggedIn=localStorage.getItem("user")!==null;
   function toggleWatchList() {
-    if(LoggedIn){
-      navigate("/login");
+    if(!LoggedIn){
+      navigate("/login", { state: { isToggled: isToggled } });
     }
     else{
     if (isFavorite) {
