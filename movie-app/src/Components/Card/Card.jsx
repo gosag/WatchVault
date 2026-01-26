@@ -1,10 +1,10 @@
 import "./Card.css";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Card = ({ tryMovie, watchList, setWatchList, isToggled }) => {
   const [ratingValue, setRatingValue] = useState("rating-0.png");
-
+  const navigate = useNavigate();
   useEffect(() => {
     const vote = tryMovie.vote_average;
     if (vote < 1) setRatingValue("rating-0.png");
@@ -22,8 +22,12 @@ const Card = ({ tryMovie, watchList, setWatchList, isToggled }) => {
   const isFavorite = watchList.some(
     movie => movie.id === tryMovie.id
   );
- 
+  const LoggedIn=localStorage.getItem("user")!==null;
   function toggleWatchList() {
+    if(!LoggedIn){
+      navigate("/login");
+    }
+    else{
     if (isFavorite) {
       setWatchList(prev =>
         prev.filter(movie => movie.id !== tryMovie.id)
@@ -31,7 +35,8 @@ const Card = ({ tryMovie, watchList, setWatchList, isToggled }) => {
     } else {
       setWatchList(prev => [...prev, tryMovie]);
     }
-  }
+  }}
+ 
 const imageUrl = tryMovie.poster_path
     ? `https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`
     : "https://via.placeholder.com/500x750?text=No+Image";
