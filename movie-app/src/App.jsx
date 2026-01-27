@@ -5,13 +5,13 @@ import Header from './Components/Header.jsx/Header.jsx'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useInfiniteScroll } from './hooks/useInfiniteScroll';
-import { Link } from 'react-router-dom';
 
 function App() {
   const [countPage,setCountPage]=useState(1)
   const [movies,setMovies]=useState([])
   const [loading,setLoading]=useState(true) // Start with true for initial load
   const [hasMore, setHasMore] = useState(true)
+  const [show,setShow]=useState(false)
   const [isToggled,setIsToggled]=useState(
   localStorage.getItem('isToggled') === 'true'||false)
   const [watchList, setWatchList] = useState(() => {
@@ -44,6 +44,14 @@ function App() {
     fetchMovies();
     return ()=>{controller.abort();};  
   },[])
+  useEffect(() => {
+  const onScroll = () =>
+    setShow(window.scrollY > window.innerHeight * 2);
+
+  window.addEventListener("scroll", onScroll);
+  return () => window.removeEventListener("scroll", onScroll);
+}, []);
+
 
   // Load more movies function for infinite scroll
   const loadMoreMovies = useCallback(async () => {
@@ -127,8 +135,9 @@ function MovieLoadingSceleton(){
       searchValue={searchValue}
       setSearchValue={setSearchValue}
       />
-      <div onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" });
-}} className='go-top'>⬆️</div>
+      {show && <div onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" });
+}} className='go-top'><i class="fa-solid fa-chevron-up"></i>
+</div>}
     <div className='box-wrapper'>
     {searchValue.length===0 && !loading && movies.length > 0 && movies.map((movie)=>(
           <div key={movie.id}> 
