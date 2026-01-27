@@ -403,7 +403,7 @@
   }
 }
 
-/* Tablets landscape / Small desktop (768px - 1023px) */
+/* Tablets landscape / Small desktop (768px - 1023px) made just for tablets*/
 @media (min-width: 768px) and (max-width: 1023px) {
   .card {
     padding: 1rem;
