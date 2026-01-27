@@ -33,7 +33,7 @@ const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
         </div>
         {(searchValue.length>0 ) &&
          <div>  
-               <div className={`match-not-found ${isToggled?"no-watch-light-theme":""}`}>{filteredValue.length===0?"SRY! Match is not found in this page. PLS Try the next":""}</div>
+               <div className={`match-not-found ${isToggled?"no-watch-light-theme":""}`}>{filteredValue.length===0?"SRY! Match is not found. PLS Try loading more data":""}</div>
                 {filteredValue.map((tryMovie)=>(
                   <Link to="/Details" state={{ tryMovie }} className='search-result'>
                     <div className={`header-title-box ${!isToggled?"search-list-color":""}`}>
@@ -44,7 +44,6 @@ const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
                 ))}
             </div>
         }
-        
         </div>
     )
 }

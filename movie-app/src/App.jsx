@@ -5,6 +5,7 @@ import Header from './Components/Header.jsx/Header.jsx'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useInfiniteScroll } from './hooks/useInfiniteScroll';
+import { Link } from 'react-router-dom';
 
 function App() {
   const [countPage,setCountPage]=useState(1)
@@ -116,7 +117,9 @@ function MovieLoadingSceleton(){
 }
   return (
     <div>
-    <div className={`bigger-container ${isToggled?"dim-light":''}`}>
+     
+    <div className={`bigger-container ${isToggled?"dim-light":''}`} style={{position:'relative'}}>
+
       <Header watchList={watchList}
       isToggled={isToggled}
       setIsToggled={setIsToggled}
@@ -124,6 +127,8 @@ function MovieLoadingSceleton(){
       searchValue={searchValue}
       setSearchValue={setSearchValue}
       />
+      <div onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" });
+}} className='go-top'>⬆️</div>
     <div className='box-wrapper'>
     {searchValue.length===0 && !loading && movies.length > 0 && movies.map((movie)=>(
           <div key={movie.id}> 
@@ -157,6 +162,7 @@ function MovieLoadingSceleton(){
       </div>
     )}
     </div>
+    
     </div>
   )
 }
