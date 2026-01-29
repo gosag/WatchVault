@@ -1,7 +1,7 @@
 import { useState,useEffect, useCallback} from 'react'
 import './App.css'
 import Card from './Components/Card/Card.js'
-import Header from './Components/Header.jsx/Header.jsx'
+import Header from './Components/Header.jsx/Header.js'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useInfiniteScroll } from './hooks/useInfiniteScroll.js';
