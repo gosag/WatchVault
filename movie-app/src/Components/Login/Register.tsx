@@ -1,5 +1,5 @@
 import "./Login-and-register.css";
-import { Form, useActionData, redirect,Link ,useLocation} from "react-router-dom";
+import { Form, useActionData, redirect,Link ,useLocation, type ActionFunctionArgs} from "react-router-dom";
 export default function Register() {
   const data = useActionData();
   const location = useLocation();
@@ -33,7 +33,7 @@ export default function Register() {
   );
 }
 
-export const registerAction = async ({ request }) => {
+export const registerAction = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const submission = {
     username: formData.get("username"),
