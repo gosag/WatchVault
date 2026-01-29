@@ -12,15 +12,15 @@ export default function Register() {
         <input type="text" 
         id="username" 
         name="username" 
-        minLength="3"
-        maxLength="15"
+        minLength={3}
+        maxLength={15}
         required />
 
         <label htmlFor="password">Password:</label>
         <input type="password" 
         id="password"
-        minLength="6"
-        maxLength="20"
+        minLength={6}
+        maxLength={20}
         name="password" required />
 
         <button type="submit">Register</button>

@@ -30,7 +30,7 @@ const Card = ({ tryMovie, watchList, setWatchList, isToggled }: CardProps) => {
     else setRatingValue("rating-50.png");
   }, [tryMovie.vote_average]);
   const isFavorite = watchList.some(
-    movie => movie.id === tryMovie.id
+    (movie: any) => movie.id === tryMovie.id
   );
   const LoggedIn=localStorage.getItem("user")!==null;
   function toggleWatchList() {
