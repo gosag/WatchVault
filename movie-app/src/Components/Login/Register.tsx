@@ -15,6 +15,7 @@ export default function Register() {
         minLength={3}
         maxLength={15}
         required />
+       
 
         <label htmlFor="password">Password:</label>
         <input type="password" 

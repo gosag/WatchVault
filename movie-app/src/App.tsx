@@ -7,14 +7,21 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useInfiniteScroll } from './hooks/useInfiniteScroll.js';
 
 function App() {
+  type Movie = {
+  id: number;
+  title: string;
+  poster_path: string;
+  release_date: string;
+  vote_average: number;
+};
   const [countPage,setCountPage]=useState(1)
-  const [movies,setMovies]=useState([])
+  const [movies,setMovies]=useState<Movie[]>([])
   const [loading,setLoading]=useState(true) // Start with true for initial load
   const [hasMore, setHasMore] = useState(true)
   const [show,setShow]=useState(false)
   const [isToggled,setIsToggled]=useState(
   localStorage.getItem('isToggled') === 'true'||false)
-  const [watchList, setWatchList] = useState(() => {
+  const [watchList, setWatchList] = useState<Movie[]>(() => {
   const saved = localStorage.getItem("watchList");
   return saved ? JSON.parse(saved) : []
 });
@@ -73,7 +80,7 @@ function App() {
       } else {
         setHasMore(false);
       }
-    } catch (err) {
+    } catch (err:any) {
       if (err.name !== 'AbortError') {
         console.log("error", err);
       }
@@ -91,7 +98,7 @@ function App() {
   localStorage.setItem("watchList", JSON.stringify(watchList));
 }, [watchList]);
 useEffect(()=>{
-  localStorage.setItem('isToggled',isToggled)
+  localStorage.setItem('isToggled',isToggled.toString())
 },[isToggled])
 function MovieLoadingSceleton(){
   return(
@@ -128,10 +135,10 @@ function MovieLoadingSceleton(){
      
     <div className={`bigger-container ${isToggled?"dim-light":''}`} style={{position:'relative'}}>
 
-      <Header watchList={watchList}
+      <Header
       isToggled={isToggled}
       setIsToggled={setIsToggled}
-      movies={movies}
+      movies={Array.isArray(movies) ? movies : [movies]}
       searchValue={searchValue}
       setSearchValue={setSearchValue}
       />
@@ -139,7 +146,7 @@ function MovieLoadingSceleton(){
 }} className='go-top'><i className="fa-solid fa-chevron-up"></i>
 </div>}
     <div className='box-wrapper'>
-    {searchValue.length===0 && !loading && movies.length > 0 && movies.map((movie)=>(
+    {searchValue.length===0 && !loading && movies.length > 0 && movies.map((movie:Movie)=>(
           <div key={movie.id}> 
              <Card tryMovie={movie} 
               watchList={watchList}
@@ -165,7 +172,7 @@ function MovieLoadingSceleton(){
     )}
     
     {/* End of list message */}
-    {searchValue.length === 0 && !hasMore && movies.length > 0 && (
+    {searchValue.length === 0 && !hasMore && movies.length> 0 && (
       <div style={{ textAlign: 'center', padding: '2rem', color: isToggled ? '#e5e7eb' : '#1f2937' }}>
         <p>You've reached the end! 🎬</p>
       </div>

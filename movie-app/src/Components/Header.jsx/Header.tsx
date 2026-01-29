@@ -1,7 +1,23 @@
 import './Header.css'
 import {useState} from 'react'
 import { Link } from 'react-router-dom'
-const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
+type MovieType={
+        id: number;
+        title: string;
+        poster_path: string;
+        release_date: string;
+        vote_average: number;
+    
+}
+type HeaderType={
+    isToggled:boolean,
+    searchValue:string,
+    movies:MovieType[],
+    setIsToggled:React.Dispatch<React.SetStateAction<boolean>>,
+    setSearchValue:React.Dispatch<React.SetStateAction<string>>
+}
+const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue}:HeaderType)=>{
+
     const filteredValue=movies.length>0?movies.filter((movie)=>movie.title.toLowerCase().includes(searchValue.toLowerCase())):[];
     const logged=localStorage.getItem("user")!==null;
     return(
@@ -15,7 +31,7 @@ const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue})=>{
                     placeholder="Search Movies"/>
                 {searchValue.length>0 &&
                     <div className={`cancel-button`}
-                    onClick={()=>{setSearchValue('')}}><i class="fa-solid fa-xmark-circle"></i>
+                    onClick={()=>{setSearchValue('')}}><i className="fa-solid fa-xmark-circle"></i>
                     </div>
                 }   
             </div>

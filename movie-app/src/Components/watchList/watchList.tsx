@@ -7,6 +7,9 @@ function WatchList() {
     useEffect(() => {
     localStorage.setItem('isToggled', toggle);
   }, [toggle]);
+useEffect(() => {
+  console.log(localStorage.getItem("watchList"));
+}, []);
 
     useEffect(()=>{
         const storedList=JSON.parse(localStorage.getItem('watchList'))||[];
