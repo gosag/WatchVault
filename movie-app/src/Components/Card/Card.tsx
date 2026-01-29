@@ -1,8 +1,18 @@
 import "./Card.css";
 import { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-
-const Card = ({ tryMovie, watchList, setWatchList, isToggled }) => {
+type CardProps={
+  watchList:any,
+  setWatchList: React.Dispatch<any>,
+  tryMovie:{
+    id:number,
+    title:string,
+    poster_path:string,
+    vote_average:number
+  },
+  isToggled:boolean
+}
+const Card = ({ tryMovie, watchList, setWatchList, isToggled }: CardProps) => {
   const [ratingValue, setRatingValue] = useState("rating-0.png");
   const navigate = useNavigate();
   useEffect(() => {

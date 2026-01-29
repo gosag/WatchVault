@@ -1,10 +1,10 @@
 import { useState,useEffect, useCallback} from 'react'
 import './App.css'
-import Card from './Components/Card/Card.jsx'
+import Card from './Components/Card/Card.js'
 import Header from './Components/Header.jsx/Header.jsx'
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useInfiniteScroll } from './hooks/useInfiniteScroll';
+import { useInfiniteScroll } from './hooks/useInfiniteScroll.js';
 
 function App() {
   const [countPage,setCountPage]=useState(1)
@@ -136,7 +136,7 @@ function MovieLoadingSceleton(){
       setSearchValue={setSearchValue}
       />
       {show && <div onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" });
-}} className='go-top'><i class="fa-solid fa-chevron-up"></i>
+}} className='go-top'><i className="fa-solid fa-chevron-up"></i>
 </div>}
     <div className='box-wrapper'>
     {searchValue.length===0 && !loading && movies.length > 0 && movies.map((movie)=>(
