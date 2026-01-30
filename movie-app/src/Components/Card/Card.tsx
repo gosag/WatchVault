@@ -1,9 +1,16 @@
 import "./Card.css";
 import { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+  type Movie = {
+  id: number;
+  title: string;
+  poster_path: string;
+  release_date?: string;
+  vote_average: number;
+};
 type CardProps={
   watchList:any,
-  setWatchList: React.Dispatch<any>,
+  setWatchList: React.Dispatch<React.SetStateAction<Movie[]>>,
   tryMovie:{
     id:number,
     title:string,

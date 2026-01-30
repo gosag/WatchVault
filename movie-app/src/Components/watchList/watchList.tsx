@@ -5,18 +5,19 @@ function WatchList() {
     const [watchList,setWatchList]=useState([])
     const [toggle,setToggle]=useState( localStorage.getItem('isToggled') === 'true'||false)
     useEffect(() => {
-    localStorage.setItem('isToggled', toggle);
+    localStorage.setItem('isToggled', toggle.toString());
   }, [toggle]);
 useEffect(() => {
   console.log(localStorage.getItem("watchList"));
 }, []);
 
     useEffect(()=>{
-        const storedList=JSON.parse(localStorage.getItem('watchList'))||[];
+        const stored = localStorage.getItem('watchList');
+        const storedList = stored ? JSON.parse(stored) : [];
         setWatchList(storedList)
     },[])
-    function RemoveHandler(id){
-        const filteredMovies=watchList.filter((movie)=>movie.id!==id)
+    function RemoveHandler(id:number){
+        const filteredMovies=watchList.filter((movie:{id:number})=>movie.id!==id)
         setWatchList(filteredMovies)
         localStorage.setItem(
         "watchList",
@@ -38,7 +39,7 @@ if (watchList.length === 0) {
     <div className={`page-container ${!toggle?"bright-watchlist":""}`}>
         <h2 className="watchlist-header">My watchlist</h2>
         <div className="movies-container">
-        {watchList.map((movie)=>(
+        {watchList.map((movie:{title:string,id:number,vote_average:number})=>(
             <div className="card-container" key={movie.id}>
                 <div className="image-contain">
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

@@ -16,15 +16,15 @@ function Details() {
     ? `https://image.tmdb.org/t/p/w500${tryMovie.poster_path}`
     : "https://via.placeholder.com/500x750?text=No+Image";
   useEffect(()=>{
-    const watchList=JSON.parse(localStorage.getItem('watchList'))||[];
-      const exists=watchList.some(movie=>movie.id===tryMovie.id)
+    const holdFSec=localStorage.getItem('watchList')
+    const watchList=holdFSec?JSON.parse(holdFSec):[];
+      const exists=watchList.some((movie:{id:number})=>movie.id===tryMovie.id)
       setIsInWatchList(exists)
     
   },[tryMovie.id])
   const handleAddToWatchList = () => {
-  const watchList =
-    JSON.parse(localStorage.getItem("watchList")) || [];
-
+  const holdFsec=localStorage.getItem("watchList")
+  const watchList =holdFsec?JSON.parse(holdFsec):[];
   if (isInWatchList) {
     return;
   }
