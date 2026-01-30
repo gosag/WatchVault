@@ -49,7 +49,7 @@ const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue}:HeaderT
         </div>
         {(searchValue.length>0 ) &&
          <div>  
-               <div className={`match-not-found ${isToggled?"no-watch-light-theme":""}`}>{filteredValue.length===0?"SRY! Match is not found. PLS Try loading more data":""}</div>
+               <div className={`match-not-found ${isToggled?"no-watch-light-theme":""}`}>{filteredValue.length===0?"SRY! Match is not found. PLS Try loading more movies":""}</div>
                 {filteredValue.map((tryMovie)=>(
                   <Link to="/Details" state={{ tryMovie }} className='search-result'>
                     <div className={`header-title-box ${!isToggled?"search-list-color":""}`}>

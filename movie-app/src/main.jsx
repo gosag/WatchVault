@@ -6,8 +6,8 @@ import WatchList from './Components/watchList/watchList.jsx'
 import Details from './Components/Details/Details.jsx'
 import { createBrowserRouter,Route,RouterProvider, createRoutesFromElements} from 'react-router-dom'
 import RootLayout from './Components/Layouts/RootLayout.jsx'
-import Login from './Components/Login/Login.jsx'
-import Register,{registerAction} from './Components/Login/Register.jsx'
+import Login from './Components/Identification/Login.js'
+import Register,{registerAction} from './Components/Identification/Register.js'
 const router=createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout/>}>
