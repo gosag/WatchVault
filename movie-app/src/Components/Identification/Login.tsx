@@ -7,10 +7,10 @@ export default function Login() {
   const navigate = useNavigate(); // for programmatic navigation
   const location = useLocation();
   const isToggled = location.state?.isToggled || false;
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const savedUser = JSON.parse(localStorage.getItem("user"));
+    const maySavedUser=localStorage.getItem("user")
+    const savedUser = maySavedUser?JSON.parse(maySavedUser):"";
     if (!form.username || !form.password) {
       alert("Please fill all fields");
       return;
@@ -34,8 +34,8 @@ export default function Login() {
           id="username"
           value={form.username}
           onChange={(e) => setForm({ ...form, username: e.target.value })}
-          minLength="3"
-          maxLength="15"
+          minLength={3}
+          maxLength={15}
           required
         />
 
@@ -45,8 +45,8 @@ export default function Login() {
           id="password"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
-          minLength="6"
-          maxLength="20"
+          minLength={6}
+          maxLength={20}
           required
         />
 
