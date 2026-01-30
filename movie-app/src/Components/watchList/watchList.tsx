@@ -37,6 +37,8 @@ if (watchList.length === 0) {
 
   return(
     <div className={`page-container ${!toggle?"bright-watchlist":""}`}>
+       <Link to="/"><i className="fa-solid fa-chevron-left go-top"></i>
+     </Link> 
         <h2 className="watchlist-header">My watchlist</h2>
         <div className="movies-container">
         {watchList.map((movie:{title:string,id:number,vote_average:number})=>(
