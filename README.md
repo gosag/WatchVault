@@ -1,5 +1,5 @@
 # 🎬 Movie App
-
+📁 Source code is inside the `movie-app/` folder.
 A responsive frontend movie application that allows users to discover popular movies, search for titles, and view detailed movie information.  
 This project focuses on building a clean UI, working with external APIs, and improving frontend development skills.
 
