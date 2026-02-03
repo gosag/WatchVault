@@ -30,10 +30,10 @@ This project focuses on building a clean UI, working with external APIs, and imp
 
 | Home Page | Movie Details |
 |----------|---------------|
-| ![](./AppScrenshoots/Home.png) | ![](./AppScrenshoots/Details.png) |
+| ![](./movie-app/AppScrenshoots/Home.png) | ![](./movie-app/AppScrenshoots/Details.png) |
 
 | Search | Mobile View |
 |--------|-------------|
-| ![](./AppScrenshoots/Search.png) | ![](./AppScrenshoots/Mobile.jpg) |
+| ![](./movie-app/AppScrenshoots/Search.png) | ![](./movie-app/AppScrenshoots/Mobile.jpg) |
 
 
