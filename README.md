@@ -21,8 +21,8 @@ This project focuses on building a clean UI, working with external APIs, and imp
 
 - **React**
 - **JavaScript (ES6+)**
-- **CSS **
-- **Movie Database API (TMDB)*
+- **CSS**
+- **Movie Database API (TMDB)**
 - **Vercel** (Deployment)
 
 ---
