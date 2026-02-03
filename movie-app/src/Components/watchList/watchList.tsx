@@ -41,7 +41,7 @@ if (watchList.length === 0) {
      </Link> 
         <h2 className="watchlist-header">My watchlist</h2>
         <div className="movies-container">
-        {watchList.map((movie:{title:string,id:number,vote_average:number})=>(
+        {watchList.map((movie:{title:string,id:number,vote_average:number,poster_path:string})=>(
             <div className="card-container" key={movie.id}>
                 <div className="image-contain">
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

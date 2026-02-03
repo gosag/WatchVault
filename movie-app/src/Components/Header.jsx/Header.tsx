@@ -30,7 +30,7 @@ const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue}:HeaderT
                     type="text"  
                     placeholder="Search Movies"/>
                 {searchValue.length>0 &&
-                    <div className={`cancel-button`}
+                    <div className={`cancel-button ${!isToggled?"cancel-light-theme":""}`}
                     onClick={()=>{setSearchValue('')}}><i className="fa-solid fa-xmark-circle"></i>
                     </div>
                 }   

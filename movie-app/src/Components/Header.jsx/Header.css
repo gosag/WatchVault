@@ -168,6 +168,7 @@ body {
         right: auto;
         margin-left: -2rem;
         font-size: 1.3rem;
+        color:white;
     }
 }
 
@@ -253,7 +254,7 @@ body {
     cursor:pointer;
     z-index: 2;
     transition: all 0.5s ease;
-    color:rgb(61, 58, 58);
+    color:white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -266,4 +267,8 @@ body {
     transform: translateY(-50%) scale(1.1);
     color: #1b1b1b;
     background: rgba(255, 255, 255, 0.2);
+}
+.cancel-light-theme{
+    color:black;
+    background: rgba(0, 0, 0, 0.1);
 }
