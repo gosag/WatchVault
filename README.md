@@ -26,8 +26,6 @@ This project focuses on building a clean UI, working with external APIs, and imp
 - **Vercel** (Deployment)
 
 ---
-
-## 📸 Screenshots
 ## 📸 Screenshots
 
 | Home Page | Movie Details |
