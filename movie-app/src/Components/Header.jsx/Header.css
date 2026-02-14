@@ -90,7 +90,7 @@ body {
         opacity:0;
     }
     to{
-        transform: translateX(30px);
+        transform: translateX(27px);
         opacity:1
     }
 }
