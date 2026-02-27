@@ -14,15 +14,6 @@ function App() {
   release_date: string;
   vote_average: number;
 };
-type MovieWatch = {
-  id: number;
-  title: string;
-  release_date?: string; // optional
-  poster_path?: string;
-  overview?: string;
-  // add other fields
-};
-
   const [countPage,setCountPage]=useState(1)
   const [movies,setMovies]=useState<Movie[]>([])
   const [loading,setLoading]=useState(true) // Start with true for initial load
