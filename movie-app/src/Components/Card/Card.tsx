@@ -7,6 +7,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
   poster_path: string;
   release_date?: string;
   vote_average: number;
+  release_year?: string;
 };
 type CardProps={
   watchList:any,
@@ -15,7 +16,8 @@ type CardProps={
     id:number,
     title:string,
     poster_path:string,
-    vote_average:number
+    vote_average:number,
+    release_date?:string
   },
   isToggled:boolean
 }
@@ -60,48 +62,59 @@ const imageUrl = tryMovie.poster_path
   return (
     <div className={`card ${isToggled ? "dim-light-card" : ""}`}>
       <div className="inner-card-container">
-        <div className="image-wrap">
-          <img
-            className="movie-poster blur"
-            loading="lazy"
-            src={imageUrl}
-            alt={tryMovie.title}
-          />
-          <img
-            className="movie-poster main"
-            loading="lazy"
-            src={imageUrl}
-            alt={tryMovie.title}
-          />
-        </div>
-
-        <div className={`movie-title ${!isToggled ? "black-title" : ""}`}>
-          {tryMovie.title}
-        </div>
-
-        <div className="movie-info">
-          <div className="vote-average">
-            <img
-              className="star-image"
-              src={`/ratings/${ratingValue}`}
-              alt="rating"
-            />
-          </div>
-        </div>
-
-        <Link
-          to="Details"
-          state={{ tryMovie, isToggled }}
-        >
-          <button className="full-details">Details</button>
-        </Link>
-
+        
+        {/* Favorite Button Overlay */}
         <div
           className={`fav-container ${isFavorite ? "is-favourite" : ""}`}
           onClick={toggleWatchList}
+          title={isFavorite ? "Remove from Watchlist" : "Add to Watchlist"}
         >
           <i className="fa-solid fa-heart"></i>
         </div>
+
+        {/* Poster Background */}
+        <img
+          className="movie-poster"
+          loading="lazy"
+          src={imageUrl}
+          alt={tryMovie.title}
+        />
+
+        {/* Content Overlay */}
+        <div className="card-overlay">
+          <div className="content-wrapper">
+            <h3 className="movie-title" title={tryMovie.title}>
+              {tryMovie.title}
+            </h3>
+
+            <div className="movie-info">
+              <div className="vote-average">
+                <img
+                  className="star-image"
+                  src={`/ratings/${ratingValue}`}
+                  alt="rating"
+                />
+                <span className="rating-text">{(tryMovie.vote_average).toFixed(1)}</span>
+              </div>
+              
+              
+            </div>
+            <div className="release-year-container">
+            {tryMovie.release_date && (
+                <div className="release-year">{tryMovie.release_date.split('-')[0]}</div>
+              )}
+            </div>
+
+            <div className="action-wrapper">
+              <Link to="Details" state={{ tryMovie, isToggled }} className="details-link">
+                <button className="full-details">
+                  <i className="fa-solid fa-play"></i> View Details
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
