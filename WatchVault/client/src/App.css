@@ -16,6 +16,7 @@ html, body {
      margin-top:0px;
      background: linear-gradient(135deg, #fdfbff 0%, #f3e8ff 40%, #ffe7f4 100%);
      padding-bottom: 10px;
+    padding-top: 40px;
   }
 .box-wrapper {
   display: grid;
