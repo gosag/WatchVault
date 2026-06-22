@@ -254,3 +254,15 @@ body {
     color:black;
     background: rgba(0, 0, 0, 0.1);
 }
+.ai-reccomendation{
+    padding:0.5em 1em;
+    margin-left:0.5em;
+    background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 100%);
+    color: white;
+    color:white;
+    border:none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor:pointer;
+    transition: all 0.3s ease-in;
+}

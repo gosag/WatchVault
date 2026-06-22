@@ -16,8 +16,54 @@ type HeaderType={
     setIsToggled:React.Dispatch<React.SetStateAction<boolean>>,
     setSearchValue:React.Dispatch<React.SetStateAction<string>>
 }
-const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue}:HeaderType)=>{
 
+const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue}:HeaderType)=>{
+      const [watchList, setWatchList] = useState(() => {
+  const saved = localStorage.getItem("watchList");
+  return saved ? JSON.parse(saved) : []
+  });
+  const [recs, setRecs] = useState([]);
+  const [loading,setLoading]=useState(false);
+  const getRecommendations = async () => {
+  if(watchList.length===0){
+    alert("Your watchlist is empty! Please add some movies to get recommendations.");
+    return;
+  }
+  try{
+  setLoading(true);
+  alert("Coming Soon! This feature is in development. Please check back later for AI recommendations based on your watchlist.");
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': import.meta.env.VITE_ANTHROPIC_API_KEY,
+      'anthropic-version': '2023-06-01'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1000,
+      messages: [{
+        role: 'user',
+        content: `User's watched movies:\n${watchList.map((m:any) => 
+          `- ${m.title}`
+        ).join('\n')}\n\nRecommend 5 movies. Return ONLY JSON array:
+       [{"title":"...","year":2020,"genre":"...","reason":"..."}]`
+      }]
+    })
+  });
+
+  const data = await res.json();
+  const text = data.content[0].text;
+  console.log("raw response", text);
+  console.log("cleaned response", text.replace(/```json|```/g, '').trim());
+  setRecs(JSON.parse(text.replace(/```json|```/g, '').trim()));
+  setLoading(false);
+}catch(err){
+    console.log("error",err);
+}finally{
+    setLoading(false);
+  }
+};
     const filteredValue=movies.length>0?movies.filter((movie)=>movie.title.toLowerCase().includes(searchValue.toLowerCase())):[];
     const logged=localStorage.getItem("user")!==null;
     return(
@@ -41,7 +87,10 @@ const Header=({isToggled,setIsToggled,movies,searchValue,setSearchValue}:HeaderT
                     <i className="fa-solid fa-bookmark"></i>
                 </button>
             </Link>
-            
+            <button className="ai-reccomendation" onClick={getRecommendations}>
+                <i className="fa-solid fa-thumbs-up"></i>
+                Get Ai reccomendations
+            </button>
             <div className={`toggle-theme ${!isToggled?"not-toggled":"toggled"}`} onClick={()=>{setIsToggled(prevS=>!prevS)}}>
                <div className={`toggle-circle ${isToggled?"on-state":"off-state"}`}></div> 
             </div> 

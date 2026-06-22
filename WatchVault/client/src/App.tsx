@@ -13,6 +13,7 @@ function App() {
   poster_path: string;
   release_date: string;
   vote_average: number;
+
 };
   const [countPage,setCountPage]=useState(1)
   const [movies,setMovies]=useState<Movie[]>([])
@@ -24,8 +25,7 @@ function App() {
   const [watchList, setWatchList] = useState(() => {
   const saved = localStorage.getItem("watchList");
   return saved ? JSON.parse(saved) : []
-});
-
+  });
   const [searchValue,setSearchValue]=useState('')
 
   // Initial load - fetch first page
