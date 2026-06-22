@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Time-Varying Fields</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
+<style>
+  :root {
+    --bg: #080c14;
+    --surface: #0d1520;
+    --surface2: #111d2e;
+    --border: rgba(80,160,255,0.13);
+    --accent: #3a8eff;
+    --accent2: #7fd4f7;
+    --gold: #e8c87a;
+    --text: #c8d8f0;
+    --muted: #5a7899;
+    --glow: rgba(58,142,255,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated field lines background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 30%, rgba(58,142,255,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 60% at 80% 70%, rgba(127,212,247,0.05) 0%, transparent 60%),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 60px,
+        rgba(58,142,255,0.025) 60px,
+        rgba(58,142,255,0.025) 61px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        rgba(58,142,255,0.015) 60px,
+        rgba(58,142,255,0.015) 61px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 90px 24px 70px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(10,18,35,0.9) 0%, transparent 100%);
+  }
+
+  .header-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.1s ease forwards;
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: #e8f2ff;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.25s ease forwards;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .header-sub {
+    margin-top: 20px;
+    font-size: 1.05rem;
+    color: var(--muted);
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.4s ease forwards;
+  }
+
+  .wave-divider {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.55s ease forwards;
+  }
+
+  .wave-line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent));
+  }
+  .wave-line.r { background: linear-gradient(90deg, var(--accent), transparent); }
+
+  .wave-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,12,20,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    overflow-x: auto;
+  }
+
+  nav a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 16px 16px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  nav a:hover {
+    color: var(--accent2);
+    border-bottom-color: var(--accent2);
+  }
+  /* ── MAIN LAYOUT ── */
+  main {
+    position: relative;
+    z-index: 2;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    margin-top: 90px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 300;
+    color: #ddeeff;
+    margin-bottom: 28px;
+    line-height: 1.2;
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--accent2);
+    margin: 36px 0 14px;
+    font-style: italic;
+  }
+
+  p { margin-bottom: 16px; color: var(--text); }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    position: relative;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .card:hover {
+    border-color: rgba(58,142,255,0.35);
+    box-shadow: 0 0 30px var(--glow);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    border-radius: 2px 0 0 2px;
+  }
+
+  /* ── BULLET LIST ── */
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    border-bottom: 1px solid rgba(58,142,255,0.06);
+    color: var(--text);
+  }
+
+  ul li:last-child { border-bottom: none; }
+
+  ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 1.2em;
+    line-height: 1.5;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── ANALOGY BOX ── */
+  .analogy {
+    background: linear-gradient(135deg, rgba(232,200,122,0.06) 0%, rgba(58,142,255,0.04) 100%);
+    border: 1px solid rgba(232,200,122,0.2);
+    border-radius: 2px;
+    padding: 22px 28px;
+    margin: 24px 0;
+    font-style: italic;
+    color: #d4c090;
+    font-size: 1.02rem;
+  }
+
+  .analogy strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 28px 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+
+  thead {
+    background: rgba(58,142,255,0.1);
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    padding: 14px 20px;
+    text-align: left;
+    white-space: nowrap;
+    font-weight: 400;
+  }
+
+  td {
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(58,142,255,0.06);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tbody tr {
+    transition: background 0.2s;
+  }
+
+  tbody tr:hover {
+    background: rgba(58,142,255,0.05);
+  }
+
+  td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* ── EQUATION BLOCK ── */
+  .eq-block {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 22px 28px;
+    margin: 20px 0;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #ddeeff;
+    box-shadow: inset 0 0 30px rgba(58,142,255,0.04);
+  }
+
+  .eq-note {
+    margin-top: 10px;
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-style: italic;
+    text-align: left;
+  }
+  /* ── NUMBERED STEPS ── */
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 18px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(58,142,255,0.08);
+    align-items: flex-start;
+  }
+
+  .steps li:last-child { border-bottom: none; }
+
+  .steps li::before {
+    content: counter(step, decimal-leading-zero);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: rgba(58,142,255,0.1);
+    border: 1px solid rgba(58,142,255,0.25);
+    border-radius: 2px;
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .steps li .step-text {
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── MACHINE CARDS ── */
+  .machine-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 28px;
+  }
+
+  @media (max-width: 640px) {
+    .machine-grid { grid-template-columns: 1fr; }
+  }
+
+  .machine-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 24px 26px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .machine-card:hover {
+    border-color: rgba(58,142,255,0.3);
+    box-shadow: 0 0 24px var(--glow);
+  }
+
+  .machine-icon {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .machine-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 18px;
+  }
+
+  /* ── CANVAS ── */
+  .canvas-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 28px 0;
+  }
+
+  .canvas-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── PULSE DOT ── */
+  .pulse {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(58,142,255,0.5); }
+    50%       { box-shadow: 0 0 0 6px rgba(58,142,255,0); }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-label"><span class="pulse"></span>Electromagnetic Theory · Module 04</div>
+  <h1>Time-<em>Varying</em><br>Fields</h1>
+  <p class="header-sub">Electric &amp; Magnetic fields in dynamic environments</p>
+  <div class="wave-divider">
+    <div class="wave-line"></div>
+    <div class="wave-icon">∿ ∿ ∿</div>
+    <div class="wave-line r"></div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#intro">01 · Intro</a>
+  <a href="#static-vs-dynamic">02 · Static vs Dynamic</a>
+  <a href="#physical">03 · Physical Meaning</a>
+  <a href="#applications">04 · Applications</a>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- SECTION 1 -->
+  <section class="section" id="intro">
+    <div class="section-num">01 — Introduction</div>
+    <h2>Introduction to Time-Varying Fields</h2>
+    <div class="card">
+      <h3>Definition</h3>
+      <p>Time-varying fields are electric (<strong>E</strong>) and magnetic (<strong>H</strong>) fields whose magnitude and direction <em>change as a function of time</em>.</p>
+    </div>
+
+    <div class="card">
+      <h3>The Source</h3>
+      <ul>
+        <li>Static fields are created by <strong>stationary charges</strong> or <strong>steady direct currents (DC)</strong>.</li>
+        <li>Time-varying fields are generated by <strong>accelerating charges</strong> or <strong>alternating currents (AC)</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="analogy">
+      <strong>Dev Analogy</strong>
+      If a static field is like a plain HTML page that never changes once it loads — a time-varying field is like a dynamic, real-time application using WebSockets in a React/Node.js environment. It is constantly updating, driving changes, and interacting dynamically with its surroundings.
+    </div>
+
+    <!-- Animated wave canvas -->
+    <div class="canvas-wrap">
+      <div class="canvas-label">Live Visualization — Time-Varying Sinusoidal Field</div>
+      <canvas id="waveCanvas" height="120"></canvas>
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="section" id="static-vs-dynamic">
+    <div class="section-num">02 — Comparison</div>
+    <h2>Static vs. Time-Varying Fields</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Static Fields</th>
+            <th>Time-Varying Fields</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Source</td>
+            <td>Charges at rest, steady currents (DC)</td>
+            <td>Accelerating charges, alternating currents (AC)</td>
+          </tr>
+          <tr>
+            <td>Relationship</td>
+            <td><em>Decoupled.</em> Electric and magnetic fields exist independently.</td>
+            <td><em>Coupled.</em> A changing <strong>E</strong> creates <strong>H</strong>, and vice versa.</td>
+          </tr>
+          <tr>
+            <td>Energy</td>
+            <td>Localized in space around the charge/current.</td>
+            <td>Propagates through space as <strong>electromagnetic waves</strong>.</td>
+          </tr>
+          <tr>
+            <td>Governing Rules</td>
+            <td>Coulomb's Law, Biot-Savart Law</td>
+            <td>Maxwell's Equations</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="section" id="physical">
+    <div class="section-num">03 — Physical Meaning</div>
+    <h2>Physical Meaning of Changing E and H</h2>
+
+    <div class="card">
+      <h3>Changing H → Creates E &nbsp;·&nbsp; Faraday's Law</h3>
+      <p>A changing magnetic field forces electrons to move — inducing an electromotive force (voltage). Changing the magnetic flux through a loop of wire <em>induces</em> that voltage.</p>
+      <div class="eq-block">
+        \[\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}\]
+      </div>
+      <p class="eq-note">
+        <strong>B</strong> is the magnetic flux density, directly related to <strong>H</strong>.<br>
+        The negative sign represents <em>Lenz's Law</em> — the induced field opposes the change that created it.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Changing E → Creates H &nbsp;·&nbsp; Maxwell-Ampere Law</h3>
+      <p>A changing electric field across empty space (like between capacitor plates) acts like a physical current — called <strong>displacement current</strong>.</p>
+      <div class="eq-block">
+        \[\nabla \times \mathbf{H} = \mathbf{J} + \frac{\partial \mathbf{D}}{\partial t}\]
+      </div>
+      <p class="eq-note">
+        \(\frac{\partial \mathbf{D}}{\partial t}\) is the <em>displacement current density</em>, representing the changing electric field.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section class="section" id="applications">
+    <div class="section-num">04 — Applications</div>
+    <h2>Application in Electrical Machines</h2>
+    <div class="machine-grid">
+
+      <div class="machine-card">
+        <span class="machine-icon">⚡</span>
+        <div class="machine-title">Transformers</div>
+        <p style="margin-bottom:18px; font-size:0.93rem; color:var(--muted); font-style:italic;">Step AC voltage up or down using time-varying fields.</p>
+        <ol class="steps">
+          <li><div class="step-text">Alternating current flows into the <strong>primary coil</strong>.</div></li>
+          <li><div class="step-text">AC creates a time-varying magnetic field <strong>(H)</strong> in the iron core.</div></li>
+          <li><div class="step-text">Changing field travels through the core to the <strong>secondary coil</strong>.</div></li>
+          <li><div class="step-text">Faraday's Law induces a time-varying <strong>E</strong>, generating AC voltage in the secondary coil.</div></li>
+        </ol>
+      </div>
+
+      <div class="machine-card">
+        <span class="machine-icon">⚙️</span>
+        <div class="machine-title">Induction Motors</div>
+        <p style="margin-bottom:18px; font-size:0.93rem; color:var(--muted); font-style:italic;">Convert electrical energy into mechanical movement.</p>
+        <ol class="steps">
+          <li><div class="step-text">Multi-phase AC power feeds into the <strong>stator</strong>.</div></li>
+          <li><div class="step-text">Creates a time-varying, <strong>rotating magnetic field</strong>.</div></li>
+          <li><div class="step-text">Rotating field cuts across the bars of the <strong>rotor</strong>.</div></li>
+          <li><div class="step-text">Faraday's Law induces electric current in the rotor.</div></li>
+          <li><div class="step-text">Induced current + magnetic field → <strong>Lorentz force</strong> → torque → rotation.</div></li>
+        </ol>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  EM Theory · Time-Varying Fields &nbsp;·&nbsp; ∇ × E = −∂B/∂t
+</footer>
+
+<script>
+  // ── Scroll reveal ──
+  const sections = document.querySelectorAll('.section');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => io.observe(s));
+
+  // ── Wave Canvas ──
+  const canvas = document.getElementById('waveCanvas');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+    canvas.height = 120 * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let t = 0;
+  function draw() {
+    const W = canvas.offsetWidth;
+    const H = 120;
+    ctx.clearRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(58,142,255,0.06)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < W; x += 40) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+    ctx.beginPath(); ctx.moveTo(0, H/2); ctx.lineTo(W, H/2); ctx.stroke();
+
+    const drawWave = (color, phase, amp, dash) => {
+      ctx.beginPath();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      if (dash) ctx.setLineDash([6, 4]);
+      else ctx.setLineDash([]);
+      for (let x = 0; x <= W; x++) {
+        const freq = 2.5;
+        const y = H/2 - amp * Math.sin((x / W) * freq * Math.PI * 2 - t + phase);
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+    };
+
+    drawWave('rgba(58,142,255,0.85)', 0, 36, false);       // E field
+    drawWave('rgba(127,212,247,0.65)', Math.PI/2, 28, true); // H field
+
+    // Legend
+    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.fillStyle = 'rgba(58,142,255,0.9)';
+    ctx.fillRect(16, 12, 20, 2);
+    ctx.fillStyle = 'rgba(58,142,255,0.9)';}
