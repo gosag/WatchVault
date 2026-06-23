@@ -4,21 +4,23 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import cors from 'cors';
 const corsOptions = {
-  origin: ['http://localhost:5173',"https://watchvault.gosagirma.me"],
+  origin: ["https://watchvault.gosagirma.me",'http://localhost:5173'],
   methods: 'POST',
   allowedHeaders: 'Content-Type,Authorization',
   credentials: true,
 };
 dotenv.config();
 const app = express();
-app.use(morgan('dev'));
+app.use(morgan('combined'));
 app.use(cors(corsOptions));
 app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Server is running');
 });
 app.use('/api/ai', routes);
-
+app.use('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {

@@ -27,7 +27,7 @@ function App() {
   return saved ? JSON.parse(saved) : []
   });
   const [searchValue,setSearchValue]=useState('')
-
+  
   // Initial load - fetch first page
   useEffect(()=>{
     const controller=new AbortController();
@@ -59,7 +59,12 @@ function App() {
   return () => window.removeEventListener("scroll", onScroll);
 }, []);
 
-
+useEffect(()=>{
+  fetch(`${import.meta.env.VITE_URL || 'http://localhost:3001'}/health`)
+  .then(res=>res.json())
+  .then(data=>console.log(data.status))
+  .catch(err=>console.log("Health check failed"))
+},[])
   // Load more movies function for infinite scroll
   const loadMoreMovies = useCallback(async () => {
     if (loading || !hasMore) return;

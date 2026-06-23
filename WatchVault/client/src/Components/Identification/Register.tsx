@@ -12,6 +12,7 @@ export default function Register() {
         <input type="text" 
         id="username" 
         name="username" 
+        autoComplete="off"
         minLength={3}
         maxLength={15}
         required />
@@ -22,6 +23,7 @@ export default function Register() {
         id="password"
         minLength={6}
         maxLength={20}
+        autoComplete="off"
         name="password" required />
 
         <button type="submit">Register</button>

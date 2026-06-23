@@ -19,7 +19,9 @@ export default function Login() {
     if (savedUser?.username === form.username && savedUser?.password === form.password) {
       alert("Login successful!");
       navigate("/"); // go to home page
-    } else {
+    } else if(!savedUser) {
+      alert("Please! register first.");
+    }else{
       alert("Invalid username or password");
     }
   };
@@ -33,6 +35,7 @@ export default function Login() {
           type="text"
           id="username"
           value={form.username}
+          autoComplete="off"
           onChange={(e) => setForm({ ...form, username: e.target.value })}
           minLength={3}
           maxLength={15}
@@ -44,6 +47,7 @@ export default function Login() {
           type="password"
           id="password"
           value={form.password}
+          autoComplete="off"
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           minLength={6}
           maxLength={20}
