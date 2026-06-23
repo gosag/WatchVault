@@ -80,12 +80,13 @@ body {
 }
 
 /* ── Header ── */
-.header{
-    position:fixed;
-    top:0;
+.header {
+    position: fixed;
+    top: 0;
     width: 100%;
     z-index: 100;
 }
+
 .header-container {
     display: flex;
     align-items: center;
@@ -114,7 +115,7 @@ body {
     flex: 1;
     min-width: 0;
     padding: 11px 40px 11px 18px;
-    font-size: 0.95rem;
+    font-size: 1rem; /* was 0.95rem */
     background: var(--input-bg);
     border: 1.5px solid var(--input-border);
     border-radius: 30px;
@@ -251,7 +252,7 @@ body {
 .match-not-found {
     margin-left: 10px;
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    font-size: 1.05rem; /* was 1rem */
     font-weight: 500;
     color: var(--text-secondary);
     padding: 8px 0;
@@ -268,7 +269,7 @@ body {
     border: none;
     background: var(--ai-btn-bg);
     color: var(--ai-btn-color);
-    font-size: 13px;
+    font-size: 14px; /* was 13px */
     font-weight: 500;
     cursor: pointer;
     flex-shrink: 0;
@@ -321,13 +322,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 18px;
+    padding: 16px 20px; /* was 15px 18px */
     border-bottom: 1px solid var(--ai-panel-header-border);
     flex-shrink: 0;
 }
+
 .ai-saved-label {
-    font-size: 11px;
-    padding: 3px 9px;
+    font-size: 12px; /* was 11px */
+    padding: 4px 10px; /* was 3px 9px */
     border-radius: 7px;
     background: var(--ai-label-bg);
     color: var(--text-secondary);
@@ -339,14 +341,14 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 15px;
+    font-size: 16px; /* was 15px */
     font-weight: 500;
     color: var(--text-primary);
 }
 
 .ai-label {
-    font-size: 11px;
-    padding: 3px 9px;
+    font-size: 12px; /* was 11px */
+    padding: 4px 10px; /* was 3px 9px */
     border-radius: 7px;
     background: var(--ai-label-bg);
     color: var(--text-secondary);
@@ -355,8 +357,8 @@ body {
 }
 
 .ai-close-btn {
-    width: 28px;
-    height: 28px;
+    width: 30px; /* was 28px */
+    height: 30px; /* was 28px */
     border-radius: 8px;
     border: 1px solid var(--ai-close-border);
     background: transparent;
@@ -365,7 +367,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 15px; /* was 14px */
     transition: background 0.15s ease;
 }
 
@@ -392,7 +394,7 @@ body {
     gap: 14px;
     padding: 36px 0;
     color: var(--text-secondary);
-    font-size: 13px;
+    font-size: 14px; /* was 13px */
 }
 
 .ai-dots { display: flex; gap: 7px; }
@@ -421,7 +423,7 @@ body {
     gap: 8px;
     padding: 36px 0;
     color: #e24b4a;
-    font-size: 13px;
+    font-size: 14px; /* was 13px */
     text-align: center;
 }
 
@@ -435,7 +437,7 @@ body {
     border: 1px solid var(--ai-retry-border);
     background: transparent;
     color: var(--text-primary);
-    font-size: 13px;
+    font-size: 14px; /* was 13px */
     cursor: pointer;
     transition: background 0.15s ease;
 }
@@ -443,12 +445,12 @@ body {
 .ai-retry-btn:hover { background: var(--ai-item-bg); }
 
 /* ── Rec cards ── */
-.ai-rec-list { display: flex; flex-direction: column; gap: 9px; }
+.ai-rec-list { display: flex; flex-direction: column; gap: 10px; /* was 9px */ }
 
 .ai-rec-item {
     display: flex;
-    gap: 12px;
-    padding: 13px;
+    gap: 13px; /* was 12px */
+    padding: 14px; /* was 13px */
     border: 1px solid var(--ai-item-border);
     border-radius: 12px;
     background: var(--ai-item-bg);
@@ -458,15 +460,15 @@ body {
 .ai-rec-item:hover { border-color: var(--border-strong); }
 
 .ai-rec-num {
-    width: 26px;
-    height: 26px;
+    width: 28px; /* was 26px */
+    height: 28px; /* was 26px */
     border-radius: 7px;
     background: var(--ai-num-bg);
     border: 1px solid var(--ai-num-border);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 12px; /* was 11px */
     font-weight: 500;
     color: var(--text-secondary);
     flex-shrink: 0;
@@ -483,47 +485,55 @@ body {
 }
 
 .ai-rec-title {
-    font-size: 14px;
+    font-size: 15px; /* was 14px */
     font-weight: 500;
     color: var(--text-primary);
 }
 
 .ai-rec-year {
-    font-size: 12px;
+    font-size: 13px; /* was 12px */
     color: var(--text-tertiary);
 }
 
 .ai-rec-genre {
-    font-size: 11px;
-    padding: 2px 8px;
+    font-size: 12px; /* was 11px */
+    padding: 3px 9px;
     border-radius: 6px;
     background: var(--ai-genre-bg);
     border: 1px solid var(--ai-genre-border);
     color: var(--text-secondary);
     display: inline-block;
-    margin-bottom: 6px;
+    margin-bottom: 7px; /* was 6px */
 }
 
 .ai-rec-reason {
-    font-size: 12px;
+    font-size: 13px; /* was 12px */
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.65; /* was 1.6 */
 }
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
     .header-container { padding: 10px 0.75rem; gap: 0.5rem; }
-    .search-input { font-size: 0.9rem; padding: 10px 16px; }
+    .search-input { font-size: 0.95rem; padding: 10px 16px; } /* was 0.9rem */
     .watchlist { min-width: 40px; height: 40px; }
     .cancel-button { right: auto; margin-left: -2rem; }
-    .ai-recommendation-btn { padding: 0 11px; font-size: 12px; height: 36px; }
+    .ai-recommendation-btn { padding: 0 12px; font-size: 13px; height: 38px; } /* was 11px / 12px / 36px */
+    .ai-panel-title { font-size: 15px; }
+    .ai-rec-title { font-size: 14px; }
+    .ai-rec-reason { font-size: 13px; }
 }
 
 @media (max-width: 480px) {
     .header-container { padding: 8px 0.5rem; gap: 0.35rem; }
-    .search-input { font-size: 0.85rem; padding: 8px 14px; }
+    .search-input { font-size: 0.9rem; padding: 8px 14px; } /* was 0.85rem */
     .watchlist { min-width: 36px; height: 36px; font-size: 0.85rem; }
-    .ai-recommendation-btn { padding: 0 10px; gap: 5px; }
+    .ai-recommendation-btn { padding: 0 10px; gap: 5px; font-size: 12px; }
     .ai-overlay { padding-top: 56px; }
     .ai-panel { max-height: 85vh; }
+    .ai-panel-title { font-size: 14px; }
+    .ai-panel-header { padding: 13px 15px; }
+    .ai-rec-title { font-size: 14px; }
+    .ai-rec-reason { font-size: 12px; }
+    .ai-label, .ai-saved-label { font-size: 11px; padding: 3px 8px; }
 }
