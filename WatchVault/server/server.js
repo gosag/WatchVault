@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import cors from 'cors';
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: ['http://localhost:5173',"https://watchvault.gosagirma.me"],
   methods: 'POST',
   allowedHeaders: 'Content-Type,Authorization',
   credentials: true,
@@ -14,6 +14,9 @@ const app = express();
 app.use(morgan('dev'));
 app.use(cors(corsOptions));
 app.use(express.json());
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
 app.use('/api/ai', routes);
 
 const PORT = process.env.PORT || 3001;
