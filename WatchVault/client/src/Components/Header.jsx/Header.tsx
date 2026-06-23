@@ -40,7 +40,7 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue, 
   const savedLastWatchList = localStorage.getItem("lastWatchList");
   const initialLastWatchList = savedLastWatchList ? JSON.parse(savedLastWatchList) : [];
   const [lastWatchList, setLastWatchList] = useState<MovieType[]>(initialLastWatchList);
-  const BASE_URL = import.meta.env.VITE_URL || 'http://localhost:3001';
+  const BASE_URL = import.meta.env.BASE_URL
   const isTHeWatchListSame = (current: MovieType[], last: MovieType[]) => {
     if (current.length !== last.length) return false;
     for (let i = 0; i < current.length; i++) {
