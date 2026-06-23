@@ -33,38 +33,6 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue, 
   useEffect(() => {
     setWatchList(headerWatchList);
   }, [headerWatchList]);
-  const sampleData: RecType[] = [
-  {
-    title: 'Mission: Impossible - Fallout',
-    year: 2018,
-    genre: 'Action, Thriller',
-    reason: "You enjoyed the high-octane, practical action and blockbuster thrill of 'Top Gun: Maverick,' and 'Mission: Impossible - Fallout' delivers similar adrenaline-pumping sequences, incredible stunts, and a relentless pace, making it one of the genre's best."
-  },
-  {
-    title: 'Mad Max: Fury Road',
-    year: 2015,
-    genre: 'Action, Sci-Fi',
-    reason: "With its non-stop, visually stunning action and unique post-apocalyptic setting, 'Mad Max: Fury Road' offers the intense, fantastical spectacle you appreciated in 'Mortal Kombat II' and the relentless, high-stakes excitement of 'Top Gun: Maverick'."
-  },
-  {
-    title: 'John Wick',
-    year: 2014,
-    genre: 'Action, Thriller',
-    reason: "Given your enjoyment of the choreographed combat in 'Mortal Kombat II,' 'John Wick' provides a masterclass in stylish, well-executed martial arts and gun-fu action, creating a compelling and highly rewatchable thrill ride."
-  },
-  {
-    title: 'Dredd',
-    year: 2012,
-    genre: 'Action, Sci-Fi',
-    reason: "For fans of the grittier, sci-fi tinged action found in 'Mortal Kombat II,' 'Dredd' delivers a relentless and intense experience with impactful violence, a unique dystopian setting, and a no-nonsense approach to its action sequences."
-  },
-  {
-    title: 'Edge of Tomorrow',
-    year: 2014,
-    genre: 'Action, Sci-Fi',
-    reason: "This film blends high-concept sci-fi with intense action, offering a gripping story and compelling combat. Its unique time-loop premise ensures constant high stakes and exciting sequences, appealing to your enjoyment of both 'Mortal Kombat II's sci-fi elements and 'Top Gun: Maverick's blockbuster thrills."
-  }
-];
   const [recs, setRecs] = useState<RecType[]>([]);
   const [loading, setLoading] = useState(false);
   const [overlayOpen, setOverlayOpen] = useState(false);
@@ -73,14 +41,14 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue, 
   const initialLastWatchList = savedLastWatchList ? JSON.parse(savedLastWatchList) : [];
   const [lastWatchList, setLastWatchList] = useState<MovieType[]>(initialLastWatchList);
   const BASE_URL = import.meta.env.VITE_URL || 'http://localhost:3001';
-    //create a function that checks if the current watchlist is the same as the last watchlist, if it is then use the saved recommendations from local storage, if not then fetch new recommendations
- const isTHeWatchListSame = (current: MovieType[], last: MovieType[]) => {
+  const isTHeWatchListSame = (current: MovieType[], last: MovieType[]) => {
     if (current.length !== last.length) return false;
     for (let i = 0; i < current.length; i++) {
       if (current?.[i]?.id !== last?.[i]?.id) return false;
     }
     return true;
   }
+  const isTheSameTrue= isTHeWatchListSame(watchList,lastWatchList);
   const getRecommendations = async () => {
     if (watchList.length === 0) {
       alert("Your watchlist is empty! Add some movies first.");
@@ -92,7 +60,7 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue, 
     setLoading(true);
 
     try {
-        if (isTHeWatchListSame(watchList, lastWatchList)) {
+        if (isTheSameTrue) {
             const savedRecs = localStorage.getItem('recs');
             if (savedRecs) {
                 setRecs(JSON.parse(savedRecs));
@@ -165,12 +133,16 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue, 
 
       {/* AI Overlay */}
       {overlayOpen && (
-        <div className={`ai-overlay `} onClick={(e) => { if (e.target === e.currentTarget) setOverlayOpen(false) }}>
+        <div className={`ai-overlay `} onClick={(e) => { if (e.target === e.currentTarget){setOverlayOpen(false)} }}>
           <div className="ai-panel">
             <div className="ai-panel-header">
+              <div>
+              
               <div className="ai-panel-title">
                 <span>Recommended for you</span>
                 <span className="ai-label">AI · Gemini</span>
+              </div>
+              <div className="ai-saved-label">The recommendations are based on your watchlist.</div>
               </div>
               <button className="ai-close-btn" onClick={() => setOverlayOpen(false)}>
                 <i className="fa-solid fa-xmark"></i>
