@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 const corsOptions = {
   origin: ["https://watchvault.gosagirma.me",'http://localhost:5173'],
-  methods: 'POST',
+  methods: ['POST','GET'],
   allowedHeaders: 'Content-Type,Authorization',
   credentials: true,
 };
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 app.use('/api/ai', routes);
-app.use('/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 const PORT = process.env.PORT || 3001;
