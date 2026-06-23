@@ -11,7 +11,7 @@ const corsOptions = {
 };
 dotenv.config();
 const app = express();
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 app.use(cors(corsOptions));
 app.use(express.json());
 app.get('/', (req, res) => {

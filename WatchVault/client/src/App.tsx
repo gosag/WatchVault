@@ -58,9 +58,9 @@ function App() {
   window.addEventListener("scroll", onScroll);
   return () => window.removeEventListener("scroll", onScroll);
 }, []);
-
+const BASE_URL = import.meta.env.VITE_API_URL
 useEffect(()=>{
-  fetch(`${import.meta.env.VITE_URL || 'http://localhost:3001'}/health`)
+  fetch(`${BASE_URL || 'http://localhost:3001'}/health`)
   .then(res=>res.json())
   .then(data=>console.log(data.status))
   .catch(err=>console.log("Health check failed"))
