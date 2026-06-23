@@ -141,6 +141,8 @@ function MovieLoadingSceleton(){
       movies={Array.isArray(movies) ? movies : [movies]}
       searchValue={searchValue}
       setSearchValue={setSearchValue}
+      headerWatchList={watchList}
+      setHeaderWatchList={setWatchList}
       />
       {show && <div onClick={()=>{window.scrollTo({ top: 0, behavior: "smooth" });
 }} className='go-top'><i className="fa-solid fa-chevron-up"></i>

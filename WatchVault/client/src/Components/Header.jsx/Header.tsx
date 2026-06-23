@@ -22,19 +22,17 @@ type HeaderType = {
   searchValue: string,
   movies: MovieType[],
   setIsToggled: React.Dispatch<React.SetStateAction<boolean>>,
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>,
+ headerWatchList: MovieType[],
+    setHeaderWatchList: React.Dispatch<React.SetStateAction<MovieType[]>>,
 }
 
-const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue }: HeaderType) => {
-  const [watchList, setWatchList] = useState(() => {
-    const saved = localStorage.getItem("watchList");
-    return saved ? JSON.parse(saved) : [];
-  });
+const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue, headerWatchList, setHeaderWatchList }: HeaderType) => {
+ const [watchList, setWatchList] = useState<MovieType[]>(headerWatchList);
 
   useEffect(() => {
-    const saved = localStorage.getItem("watchList");
-    setWatchList(saved ? JSON.parse(saved) : []);
-  }, []);
+    setWatchList(headerWatchList);
+  }, [headerWatchList]);
   const sampleData: RecType[] = [
   {
     title: 'Mission: Impossible - Fallout',
@@ -71,9 +69,18 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue }
   const [loading, setLoading] = useState(false);
   const [overlayOpen, setOverlayOpen] = useState(false);
   const [error, setError] = useState('');
-
+  const savedLastWatchList = localStorage.getItem("lastWatchList");
+  const initialLastWatchList = savedLastWatchList ? JSON.parse(savedLastWatchList) : [];
+  const [lastWatchList, setLastWatchList] = useState<MovieType[]>(initialLastWatchList);
   const BASE_URL = import.meta.env.VITE_URL || 'http://localhost:3001';
-
+    //create a function that checks if the current watchlist is the same as the last watchlist, if it is then use the saved recommendations from local storage, if not then fetch new recommendations
+ const isTHeWatchListSame = (current: MovieType[], last: MovieType[]) => {
+    if (current.length !== last.length) return false;
+    for (let i = 0; i < current.length; i++) {
+      if (current?.[i]?.id !== last?.[i]?.id) return false;
+    }
+    return true;
+  }
   const getRecommendations = async () => {
     if (watchList.length === 0) {
       alert("Your watchlist is empty! Add some movies first.");
@@ -85,7 +92,15 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue }
     setLoading(true);
 
     try {
-      /* const res = await fetch(`${BASE_URL}/api/ai/recommend`, {
+        if (isTHeWatchListSame(watchList, lastWatchList)) {
+            const savedRecs = localStorage.getItem('recs');
+            if (savedRecs) {
+                setRecs(JSON.parse(savedRecs));
+                setLoading(false);
+                return;
+            }
+        }
+      const res = await fetch(`${BASE_URL}/api/ai/recommend`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ movies: watchList })
@@ -94,9 +109,11 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue }
       const data = await res.json();
 
       if (!res.ok) throw new Error(data.message || 'Something went wrong');
+      setRecs(data.recommendations);
 
-      setRecs(data.recommendations); */
-      setRecs(sampleData);
+      localStorage.setItem("lastWatchList", JSON.stringify(watchList));
+      setLastWatchList(watchList);
+      localStorage.setItem('recs', JSON.stringify(data.recommendations));
     } catch (err: any) {
       setError(err.message || 'Failed to get recommendations. Please try again.');
     } finally {
