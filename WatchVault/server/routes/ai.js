@@ -2,9 +2,34 @@ import express from 'express';
 
 const router = express.Router();
 
-const PROMPT = (movies) =>
-  `User's watched movies:\n${movies.map(m => `- ${m.title} rated ${m.vote_average}/10`).join('\n')}\n\nRecommend 5 movies they haven't seen. Return ONLY a JSON array:\n[{"title":"...","year":2020,"genre":"...","reason":"..."}]`;
+    const PROMPT = (movies) => {
+      const watchedTitles = movies.map(m => m.title).join(', ');
+      const topRated = [...movies]
+        .sort((a, b) => b.user_rating - a.user_rating)
+        .slice(0, 5)
+        .map(m => `- "${m.title}" (${m.genre}, ${m.release_year}) — rated ${m.user_rating}/10`)
+        .join('\n');
 
+      return `You are a film curator with deep knowledge of cinema. Your job is to recommend movies a user will genuinely love based on their taste profile.
+
+    USER'S TOP-RATED MOVIES:
+    ${topRated}
+
+    FULL WATCHED LIST (do not recommend these or their direct sequels):
+    ${watchedTitles}
+
+    TASK:
+    Recommend exactly 5 movies. Apply these rules:
+    1. Prioritize what made their top-rated films compelling — look for patterns in genre, tone, era, themes, director style, and pacing
+    2. Vary the recommendations: don't pick 5 movies from the same genre or decade
+    3. Include at least one non-English language film if it genuinely fits their taste
+    4. The "reason" must be specific to THIS user's taste — reference an actual movie they've seen, e.g. "If you loved the slow burn of X, you'll connect with Y's..." not exactly the same phrasing but you get the idea
+    5. Avoid generic blockbusters they've almost certainly seen already
+    6. Prefer hidden gems and underseen films alongside any well-known picks
+
+    Return ONLY a valid JSON array, no markdown, no explanation:
+    [{"title":"...","year":2020,"genre":"...","imdb_id":"tt1234567","reason":"..."}]`;
+    };
 const callGemini = async (apiKey, model, movies) => {
   const resp = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
