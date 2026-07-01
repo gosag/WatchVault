@@ -50,6 +50,7 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue, 
   }
   const isTheSameTrue= isTHeWatchListSame(watchList,lastWatchList);
   const getRecommendations = async () => {
+
     if (watchList.length === 0) {
       alert("Your watchlist is empty! Add some movies first.");
       return;
@@ -88,7 +89,29 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue, 
       setLoading(false);
     }
   }
+  const [loadingMore, setLoadingMore] = useState(false);
+const getMoreRecomendations= async()=>{
 
+  try{
+    setLoadingMore(true);
+    const res= await fetch(`${BASE_URL}/api/ai/recommend/more`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ movies: watchList, recommendations: recs })
+    })
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.message || 'Something went wrong');
+    setRecs(prev => {
+    const merged = [...prev, ...data.recommendations];
+    localStorage.setItem('recs', JSON.stringify(merged));
+    return merged;
+  });
+  }catch(error){
+    console.log(error)
+  }finally{
+    setLoadingMore(false);
+  }
+}
   const filteredValue = movies.filter(m =>
     m.title.toLowerCase().includes(searchValue.toLowerCase())
   );
@@ -184,6 +207,13 @@ const Header = ({ isToggled, setIsToggled, movies, searchValue, setSearchValue, 
                       </div>
                     </div>
                   ))}
+                  {recs.length > 0 && (
+                    <div className="ai-rec-footer">
+                      <button className="ai-want-more-btn" disabled={loadingMore} onClick={getMoreRecomendations}>
+                        {loadingMore ? 'Loading...' : 'Want more?'}
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
