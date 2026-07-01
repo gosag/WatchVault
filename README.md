@@ -1,15 +1,16 @@
 # 🎬 Movie App
-📁 Source code is inside the `movie-app/` folder.
-A responsive frontend movie application that allows users to discover popular movies, search for titles, and view detailed movie information.  
+📁 Source code is inside the `watchVault/` folder.
+A responsive Full stack movie application that allows users to discover popular movies, get AI reccomedation, search for titles, and view detailed movie information.  
 This project focuses on building a clean UI, working with external APIs, and improving frontend development skills.
 
-🔗 **Live Demo:** https://movie-app-theta-steel.vercel.app/
+🔗 **Live:** https://watchvault.gosagirma.me
 
 ---
 
 ## ✨ Features
 
 - Browse popular and trending movies
+- Get AI  Movie recommendation based on the movies you liked 
 - Search movies by title
 - View movie details (overview, rating, release date, poster)
 - Responsive design for mobile and desktop
@@ -22,8 +23,10 @@ This project focuses on building a clean UI, working with external APIs, and imp
 - **React**
 - **JavaScript (ES6+)**
 - **CSS**
+- **Express**
+- **Gemini**
 - **Movie Database API (TMDB)**
-- **Vercel** (Deployment)
+- **Vercel and Render** (Deployment)
 
 ---
 ## 📸 Screenshots
